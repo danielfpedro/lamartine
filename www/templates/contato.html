@@ -1,0 +1,59 @@
+<ion-view view-title="Contato">
+    <ion-nav-buttons side="right">
+<!--         <button
+            class="button button-icon icon ion-ios-paperplane"
+            ng-click="enviarContato()"
+            ng-disabled="my_form.$pristine|| my_form.$invalid">
+        </button> -->
+    </ion-nav-buttons>
+    <ion-content>
+
+        <my-network-alert></my-network-alert>
+
+        <form name="my_form">
+            <div class="list">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Nome</span>
+                    <input type="text" ng-model="contato.nome" required>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Email</span>
+                    <input type="email" ng-model="contato.email" required>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Telefone</span>
+                    <input type="tel" ng-model="contato.telefone" required>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Assunto</span>
+                    <input type="text" ng-model="contato.assunto" required>
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Mensagem</span>
+                    <textarea ng-model="contato.mensagem" required></textarea>
+                </label>
+            </div>
+            <button
+                ng-click="enviaContato()"
+                ng-disabled="my_form.$pristine|| my_form.$invalid"
+                type="submit"
+                class="button button-assertive button-block">
+                Enviar Mensagem
+            </button>
+        </form>
+
+        <div class="text-center">
+            {{dadosGerais.telefone}}
+            <br>
+            {{dadosGerais.email}}
+            <br>
+            {{dadosGerais.comunicado}}
+            <br>
+            <div class="row">
+                <div class="col" ng-repeat="redeSocial in dadosGerais.redesSociais">
+                    <button type="button" class="button button-icon icon {{redeSocial.icon}}" ng-click="goSocial('{{redeSocial.url}}')"></button>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

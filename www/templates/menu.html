@@ -1,0 +1,50 @@
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-lamartine">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+
+            <ion-nav-buttons side="left">
+                <button
+                    class="button button-icon button-clear ion-navicon button-lamartine"
+                    menu-toggle="left">
+                </button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+
+    <ion-side-menu>
+        <ion-content>
+            <ion-list>
+                <ion-item menu-close href="#/app/biografia">
+                    Biografia
+                </ion-item>
+                <ion-item menu-close ui-sref="app.blog">
+                    Blog
+                </ion-item>
+                <ion-item menu-close ui-sref="app.audios">
+                    Audios
+                </ion-item>
+                <ion-item menu-close href="#/app/aovivo">
+                    Aovivo
+                </ion-item>
+                <ion-item menu-close href="#/app/videos">
+                    Vídeos
+                </ion-item>
+                <ion-item menu-close ui-sref="app.agenda">
+                    Agenda
+                </ion-item>
+                <ion-item menu-close ui-sref="app.contato">
+                    Contato
+                </ion-item>
+            </ion-list>
+            <a href="#/app/entrar" menu-close class="button" ng-if="!authData">
+                Entrar
+            </a>
+            <a href="#/sair" menu-close class="button" ng-if="authData">
+                Sair
+            </a>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

@@ -1,0 +1,42 @@
+<ion-view view-title="Audios">
+    <ion-content has-bouncing="false">
+        <ion-refresher
+            ng-if="!loading"
+            pulling-text="Puxe para atualizar..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <div class="text-center padding" ng-if="loading">
+            <ion-spinner></ion-spinner>
+        </div>
+
+        <ion-list>
+            <div class="card" ng-repeat="audio in audios">
+                <div class="item item-divider">
+                    {{audio.titulo}}
+                </div>
+                <div class="item item-text-wrap">
+                    {{audio.chamada}}
+                </div>
+                <div class="item item-divider">
+                    <button
+                        type="button"
+                        class="button button-clear icon-left button-dark ion-android-share" ng-click="share(audio)">
+                        Compartilhar
+                    </button>
+                </div>
+            </div>
+        </ion-list>
+
+        <div ng-if="audios.length < 1">
+            Nenhum audio para mostrar
+        </div>
+
+        <ion-infinite-scroll
+            ng-if="moreDataCanBeLoaded"
+            on-infinite="loadMore()"
+            distance="10%">
+        </ion-infinite-scroll>
+        
+    </ion-content>
+</ion-view>

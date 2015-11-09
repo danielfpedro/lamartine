@@ -1,0 +1,46 @@
+<ion-view view-title="Agenda">
+    <ion-content has-bouncing="false">
+        <ion-refresher
+            ng-if="!loading"
+            pulling-text="Puxe para atualizar..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <my-network-alert></my-network-alert>
+        
+        <div class="text-center padding" ng-if="loading">
+            <ion-spinner></ion-spinner>
+        </div>
+    
+        <ion-list>
+            <div class="card" ng-repeat="evento in eventos track by $index">
+                <div class="item item-divider">
+                    {{evento.titulo}}
+                </div>
+                <div class="item item-text-wrap">
+                    {{evento.texto}}
+                    <button 
+                        type="button"
+                        class="button button-clear button-dark icon-left ion-android-share"
+                        ng-click="share(evento)">
+                        Compartilhar
+                    </button>
+                </div>
+                <div class="item item-divider">
+                    {{evento.data | amDateFormat:'D'}} de {{evento.data | amDateFormat:'MMMM'}}
+                </div>
+            </div>
+        </ion-list>
+
+        <div ng-if="eventos.length < 1">
+            Nenhum evento para mostrar
+        </div>
+
+        <ion-infinite-scroll
+            ng-if="moreDataCanBeLoaded"
+            on-infinite="loadMore()"
+            distance="10%">
+        </ion-infinite-scroll>
+        
+    </ion-content>
+</ion-view>

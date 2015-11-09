@@ -1,0 +1,50 @@
+<ion-view view-title="Vídeos">
+    <ion-content has-bouncing="false">
+        <ion-refresher
+            ng-if="!loading"
+            pulling-text="Puxe para atualizar..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <my-network-alert></my-network-alert>
+
+        <div class="text-center padding" ng-if="loading">
+            <ion-spinner></ion-spinner>
+        </div>
+
+        <div class="card" ng-repeat="video in videos track by $index">
+            <div class="item item-divider">
+                {{video.titulo}}
+            </div>
+            <div class="item item-text-wrap">
+                <div
+                    ng-click="goYoutube('{{video.youtubeId}}')"
+                    style="height: 140px; width: 100%; background-color: grey; background-size: cover"
+                    preload-bg-image="http://img.youtube.com/vi/{{video.youtubeId}}/mqdefault.jpg"
+                    default-image="img/fallback_image.jpg"
+                    fallback-image="img/fallback_image.jpg">
+                </div>
+                {{video.chamada}}
+
+                <button 
+                    type="button"
+                    class="button button-clear button-dark icon-left ion-android-share"
+                    ng-click="share(video)">
+                    Compartilhar
+                </button>
+
+            </div>
+        </div>
+
+        <div ng-if="videos.length < 1">
+            Nenhum vídeo para mostrar
+        </div>
+
+        <ion-infinite-scroll
+            ng-if="moreDataCanBeLoaded"
+            on-infinite="loadMore()"
+            distance="10%">
+        </ion-infinite-scroll>
+
+    </ion-content>
+</ion-view>

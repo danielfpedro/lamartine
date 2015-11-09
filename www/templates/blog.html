@@ -1,0 +1,49 @@
+<ion-view view-title="Blog">
+    <ion-content has-bouncing="false">
+        <ion-refresher
+            ng-if="!loading"
+            pulling-text="Puxe para atualizar..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <my-network-alert></my-network-alert>
+
+        <div class="text-center padding" ng-if="loading">
+            <ion-spinner></ion-spinner>
+        </div>
+
+        <ion-list>
+            <div class="card" ng-repeat="post in posts track by $index">
+                <div class="item item-divider">
+                    {{post.titulo}}
+                </div>
+                <div class="item item-text-wrap">
+                    <div ng-click="goBlog('{{post.link}}')">
+                        <div
+                            class="post-cover-image"
+                            preload-bg-image="{{imagemBaseUrl}}{{post.imagem}}"
+                            default-image="img/fallback_image.jpg"
+                            fallback-image="img/fallback_image.jpg">
+                        </div>
+                        {{post.chamada}}
+                    </div>
+                    <button
+                        type="button"
+                        class="button button-clear icon-left button-dark ion-android-share"
+                        ng-click="share(post)">
+                        Compartilhar
+                    </button>
+                </div>
+                <div class="item item-divider">
+                    {{post.data | amDateFormat:'D'}} de {{post.data | amDateFormat:'MMMM'}}
+                </div>
+            </div>
+            
+        </ion-list>
+
+        <button type="button" class="button button-positive button-block" ng-click="goAllPosts()">
+            Ver todos os posts
+        </button>
+
+    </ion-content>
+</ion-view>

@@ -1,0 +1,25 @@
+<ion-view view-title="Biografia">
+    <ion-content has-bouncing="false">
+        <div class="row">
+            <div class="col col-20">
+                <img
+                    src="img/lamartine_perfil.jpg"
+                    class="full-image">
+            </div>
+            <div class="col">
+                <p>
+                    CASADO, 54 ANOS, APÓSTOLO, MÚSICO, PIANISTA, VIOLONISTA, COMPOSITOR, ESCRITOR E CONFERENCISTA.
+                </p>
+            </div>
+        </div>
+        <div class="padding">
+            <div ng-repeat="texto in textos">
+                <h4 ng-if="texto.titulo">{{texto.titulo}}</h4>
+                <p>{{texto.texto}}</p>
+            </div>
+        </div>
+        <a href="#/app/linha-do-tempo" class="button button-positive button-block">
+            Linha do tempo
+        </a>
+    </ion-content>
+</ion-view>

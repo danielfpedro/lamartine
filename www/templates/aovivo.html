@@ -1,0 +1,29 @@
+<ion-view view-title="Aovivo">
+    <ion-content has-bouncing="false">
+        <ion-refresher
+            ng-if="!loading"
+            pulling-text="Puxe para atualizar..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <my-network-alert></my-network-alert>
+
+        <div class="text-center padding" ng-if="loading">
+            <ion-spinner></ion-spinner>
+        </div>
+
+        <div ng-if="aovivo" class="text-center">
+            <button type="button" class="button button-assertive button-block" ng-click="goAovivo()">
+                Ir para Aovivo
+            </button>
+            <button type="button" class="button button-royal button-small" ng-click="share()">
+                Compartilhar
+            </button>
+        </div>
+
+        <div ng-if="!aovivo">
+            Nenhuma apresentação ao vivo no momento.
+        </div>
+        
+    </ion-content>
+</ion-view>
