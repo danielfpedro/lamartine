@@ -11,7 +11,7 @@
                 Enviar
             </button>
         </ion-nav-buttons>
-        <ion-content class="content-bg">
+        <ion-content class="">
             
                 <my-network-alert></my-network-alert>
                 <div style="background-color: #FFF">
@@ -37,7 +37,18 @@
                                 <span class="input-label">Mensagem</span>
                                 <textarea ng-model="contato.mensagem" class="textarea-contato" required></textarea>
                             </label>
+
                         </div>
+
+                        <div style="padding-bottom: 25px;">
+                            <div class="text-center padding">
+                                {{dadosGerais.telefone}}
+                                <br>
+                                {{dadosGerais.email}}
+                                <br>
+                            </div>
+                        </div>
+
             <!--                 <button
                             ng-click="enviaContato()"
                             ng-disabled="my_form.$pristine|| my_form.$invalid"

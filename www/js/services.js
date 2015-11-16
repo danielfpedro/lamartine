@@ -98,24 +98,29 @@ angular.module('starter.services', [])
                 'redesSociais' : [
                     {
                         'nome': 'Facebook',
-                        'icon': 'ion-social-facebook',
+                        'image': 'facebook_icon.png',
                         'url': 'https://www.facebook.com/lamartineposella'
                     },
                     {
                         'nome': 'Youtube',
-                        'icon': 'ion-social-youtube',
+                        'image': 'youtube_icon.png',
                         'url': 'https://www.youtube.com/user/aplamartineposella'
                     },
                     {
                         'nome': 'Instagram',
-                        'icon': 'ion-social-instagram',
+                        'image': 'instagram_icon.png',
                         'url': 'https://instagram.com/LamartinePosella'
                     },
                     {
                         'nome': 'Twitter',
-                        'icon': 'ion-social-twitter',
+                        'image': 'twitter_icon.png',
                         'url': 'https://twitter.com/Lamartineposell'
-                    }
+                    },
+                    {
+                        'nome': 'Wikipedia',
+                        'url': 'https://pt.wikipedia.org/wiki/Lamartine_Posella',
+                        'image': 'wikipedia_icon.png'
+                    },
                 ]
             }
         },
@@ -584,10 +589,10 @@ angular.module('starter.services', [])
     return {
         goExternal: function (url) {
             $ionicPlatform.ready(function() {
-                var defaultOptions = {
+                var options = {
                     location: 'yes',
                     clearcache: 'yes',
-                    toolbar: 'no'
+                    toolbar: 'yes'
                 };
                 $ionicLoading.show({template: 'Abrindo, aguarde...'});
                 $cordovaInAppBrowser.open(url, '_blank', options)

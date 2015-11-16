@@ -33,21 +33,14 @@
                     <div class="col text-center" ng-repeat="redeSocial in contato.redesSociais">
                         <button
                             type="button"
-                            class="button button-social button-icon icon {{redeSocial.icon}}"
+                            class="button button-social button-icon "
                             ng-click="goSocial('{{redeSocial.url}}')">
+                            <img src="img/{{redeSocial.image}}">
                         </button>
                     </div>
                 </div>
             </div>
-            
-            <div class="biografia-contato" style="">
-                <div class="text-center padding">
-                    {{contato.telefone}}
-                    <br>
-                    {{contato.email}}
-                    <br>
-                </div>
-            </div>
+
         </div>
 
     </ion-content>

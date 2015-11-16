@@ -199,6 +199,7 @@ angular.module('starter.controllers', [])
 })
 .controller('AudiosController', function(
     $scope,
+    CustomState,
     Sharing,
     audios,
     Audios
@@ -255,8 +256,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.goAudio = function(audio){
-        alert(audio);
-        window.open(audio.url, '_system', 'location=yes');
+        CustomState.goExternal(audio.url);
     };
     $scope.share = function(audio){
         Sharing.share(null, 'Escute Lamartine Posella "' + audio.titulo + '" em ', audio.url);
@@ -265,6 +265,7 @@ angular.module('starter.controllers', [])
 .controller('AovivoController', function(
     $scope,
     Sharing,
+    CustomState,
     Aovivo
 ) {
 
@@ -292,7 +293,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.goAovivo = function(){
-        window.open($scope.aovivo.link, '_system', 'location=yes');
+        CustomState.goExternal($scope.aovivo.link);
     };
     $scope.share = function(evento){
         Sharing.share(null, 'Assista Lamartine Posella Ao vivo em ', null, $scope.aovivo.link);
@@ -301,6 +302,7 @@ angular.module('starter.controllers', [])
 .controller('VideosController', function(
     $scope,
     videos,
+    CustomState,
     Sharing,
     Videos
 ) {
@@ -361,7 +363,7 @@ angular.module('starter.controllers', [])
 
     $scope.goYoutube = function(youtubeId){
         var url = youtubeBaseUrl + youtubeId;
-        window.open(url, '_system', 'location=yes');
+        CustomState.goExternal(url);
     };
 
     $scope.share = function(video){
@@ -427,11 +429,14 @@ angular.module('starter.controllers', [])
 })
 .controller('BiografiaController', function(
     $scope,
+    CustomState,
     contato
 ) {
+    
     $scope.contato = contato;
+
     $scope.goSocial = function(url){
-        window.open(url, '_system', 'location=yes');
+        CustomState.goExternal(url);
     };
 })
 .controller('BiografiaCompletaController', function(

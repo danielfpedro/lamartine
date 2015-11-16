@@ -9119,10 +9119,13 @@ h2 {
 
 .textarea-contato {
   resize: none;
-  height: 180px; }
+  height: 120px; }
 
-.button-social:before {
+.button-social > span.icon:before {
   font-size: 26px !important; }
+
+.button-social > img {
+  width: 36px; }
 
 .button-logoff {
   color: #666 !important; }
@@ -9183,7 +9186,7 @@ h2 {
   height: 180px;
   -webkit-background-size: cover;
   background-size: cover;
-  background-position: top center;
+  background-position: center center;
   margin: 0; }
 
 .lamartine-card-titulo {
@@ -9276,7 +9279,11 @@ h2 {
   /*flex: 1;*/ }
 
 .biografia-social {
-  /*flex: 1;*/ }
+  padding: 25px 0 10px 0;
+  /*background-color: green;*/
+  /*flex: 1;*/
+  /*	@include flexbox();
+	@include align-content(end);*/ }
 
 .biografia-contato {
   /*flex: 1;*/ }
