@@ -10,6 +10,7 @@
     "moment": "~2.10.6",
     "angular-moment": "~0.10.3",
     "angular-preload-image": "*",
-    "facebook-connect-plugin": "https://raw.githubusercontent.com/Wizcorp/phonegap-facebook-plugin/master/facebookConnectPlugin.js"
+    "facebook-connect-plugin": "https://raw.githubusercontent.com/Wizcorp/phonegap-facebook-plugin/master/facebookConnectPlugin.js",
+    "sass-flex-mixin": "~1.0.1"
   }
 }

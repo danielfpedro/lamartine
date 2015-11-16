@@ -1,14 +1,183 @@
-.card {
-	-webkit-transform: translate3d(0, 0, 0)!important;
-	transform: translate3d(0, 0, 0)!important;
-	-webkit-box-shadow: none!important;
-	-moz-box-shadow: none!important;
-	box-shadow: none!important;
-	border: 1px solid #E7E7E7!important;
+body {
+	font-family: 'Garamond'!important;
 }
-.post-cover-image{
+
+p {
+	font-size: $p-font-size;
+	line-height: $p-line-height;
+}
+h1, h2, h3, h4, h5, h6 {
+	color: $lamartine;
+	font-family: $h-font-family;
+	font-weight: $h-font-weight;
+}
+h2 {
+	font-size: $h2-font-size;
+}
+
+.textarea-contato {
+	resize: none;
+	height: 180px;
+}
+
+.button-social:before {
+	font-size: 26px!important;
+}
+
+.button-logoff {
+	color: #666 !important;
+}
+.button-logoff:before{
+	font-size: 18px!important;
+}
+
+.bar {
+	border: none!important;
+}
+.content-bg {
+	background-color: $content-bg-color!important;
+}
+.post-cover-image {
 	height: 140px;
 	width: 100%;
 	background-color: #DDD;
-	background-size: cover
+	background-size: cover;
+}
+
+/** MENU */
+.menu-lamartine-content {
+	
+}
+
+.menu-lamartine-content {
+	padding-top: $menu-padding-top;
+	background-color: $menu-bgcolor;
+}
+.platform-ios .menu-lamartine-content {
+	padding-top: $menu-ios-padding-top;
+}
+.menu-lamartine > .list{
+	/*margin-top: $menu-margin-top;*/
+} 
+.menu-lamartine > .list > .item {
+	border-color: $menu-border-color;
+	font-family: $menu-font-family;
+	font-weight: $menu-font-weight;
+	font-size: $menu-font-size;
+	color:  $menu-font-color;
+	text-transform: $menu-text-transform;
+} 
+.menu-lamartine > .list > .item > a {
+	background-color: $menu-bgcolor;
+	padding: $menu-padding;
+}
+.menu-lamartine > .list > .active > a {
+	background-color: #F8F8F8!important;
+}
+
+/*CARD*/
+.lamartine-card{
+	background-color: $card-bgcolor;
+	border-color: $card-border-color;
+	border-width: $card-border-width;
+	border-style: $card-border-style;
+	margin: $card-margin;
+	padding: $card-padding;
+	font-family: $card-font-family;
+}
+.lamartine-card-img{
+	width: $card-img-width;
+	height: $card-img-height;
+	-webkit-background-size: $card-img-size;
+	background-size: $card-img-size;
+	background-position: $card-img-position;
+	margin: $card-img-margin;
+}
+.lamartine-card-titulo {
+	color: $card-titulo-font-color;
+	font-size: $card-titulo-font-size;
+	padding: $card-titulo-padding;
+	font-weight: $card-titulo-weight;
+}
+.lamartine-card-chamada {
+	font-family: $card-chamada-font-family!important;
+	font-size: $card-chamada-font-size;
+	padding: $card-chamada-padding;
+}
+.lamartine-card-footer {
+	margin: $card-footer-margin!important;
+	padding: $card-footer-padding!important;
+	border-top: $card-footer-border-top!important;
+}
+/*Button compartilhar*/
+.button-card-footer {
+/*	min-height: 0!important;
+	padding: $button-card-footer-padding!important;
+	margin: $button-card-footer-margin!important;
+	background: $button-card-footer-bg!important;
+	border: $button-card-footer-border!important;
+	font-size: $button-card-footer-text-size!important*/
+	font-weight: $button-card-footer-font-weight!important;
+	margin: $button-card-footer-margin!important;
+	color: $button-card-footer-font-color!important;
+}
+.button-card-footer > span.icon:before {
+	/*font-size: $button-card-footer-text-size + 8!important;*/
+	
+}
+.lamartine-card-date{
+	/*font-family: $card-date-font-family;*/
+	font-size: $card-date-font-size;
+	color: $card-date-font-color;
+	margin: $card-date-margin;
+}
+
+/*NO CONTENT*/
+.no-content{
+	padding: 10px;
+	text-align: center;
+	font-size: 22px;
+	line-height: 25px;
+	color: rgba(#000, .3);
+	font-family: "Garamond"
+}
+
+.button-lamartine-header {
+	color: $button-header-text-color!important;
+}
+
+/*ENTRAR CONTENT*/
+.content-entrar {
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-color: #222;
+	background-image: url(../img/lamartine_entrar.jpg);
+	background-position: center bottom;
+}
+
+.button-facebook {
+	background-color: $facebook!important;
+	border: 0;
+}
+
+/*BIOGRAFIA*/
+
+.biografia-container {
+	@include flexbox();
+	@include flex-direction(column);
+}
+.biografia-img {
+	@include flex(1);
+}
+.biografia-sobre {
+	/*flex: 1;*/
+}
+.biografia-menu {
+	/*flex: 1;*/
+}
+.biografia-social {
+	/*flex: 1;*/
+}
+.biografia-contato {
+	/*flex: 1;*/
 }

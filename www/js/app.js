@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-var prod = false;
+var prod = true;
 
 angular.module('starter', [
     'ionic',
@@ -32,6 +32,7 @@ angular.module('starter', [
     $cordovaNetwork,
     $state,
     $cordovaToast,
+    $cordovaDialogs,
     $rootScope,
     $cordovaStatusbar,
     CONFIG
@@ -46,9 +47,17 @@ angular.module('starter', [
         if (error === "AUTH_REQUIRED") {
             event.preventDefault();
             if (prod) {
-                $cordovaToast.show('Você deve se logar para acessar esta área', 'short', 'center');    
+                $cordovaDialogs.confirm('Você deve entrar para acesar esta área.', 'Área Restrita', ['Entrar com Facebook', 'Agora não'])
+                    .then(function(buttonIndex) {
+                        // no button = 0, 'OK' = 1, 'Cancel' = 2
+                        var btnIndex = buttonIndex;
+                        if (btnIndex == 1) {
+                            $rootScope.doLoginFacebook(toState.name);
+                        }
+                    });
+                // $cordovaToast.show('Você deve se logar para acessar esta área', 'short', 'center');    
             }
-            $state.go('app.entrar');
+            //$state.go('app.entrar');
         }
     });
     /**
@@ -108,6 +117,10 @@ angular.module('starter', [
     if (prod) {
         $ionicConfigProvider.scrolling.jsScrolling(false);
     }
+    if (ionic.Platform.isIOS()) {
+        $ionicConfigProvider.backButton.text('Voltar');    
+    }
+    
     /**
      * Http interceptors
      */
@@ -217,7 +230,21 @@ angular.module('starter', [
                 authData: function(Login){
                     return Login.authData();
                 },
-                dadosGerais: function(DadosGerais){
+                contato: function(DadosGerais) {
+                    return DadosGerais.getContato();
+                }
+            }
+        })
+        .state('app.biografia-completa', {
+            url: '/biografia-completa',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/biografia_completa.html',
+                    controller: 'BiografiaCompletaController'
+                }
+            },
+            resolve: {
+                biografia: function(DadosGerais){
                     return DadosGerais.getBiografia();
                 }
             }

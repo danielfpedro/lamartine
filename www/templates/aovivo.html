@@ -1,5 +1,15 @@
-<ion-view view-title="Aovivo">
-    <ion-content has-bouncing="false">
+<ion-view view-title="Ao vivo">
+
+    <ion-nav-buttons side="right">
+        <button
+            ng-if="aovivo"
+            class="button button-clear button-light button-lamartine-header"
+            ng-click="share()">
+            Compartilhar
+        </button>
+    </ion-nav-buttons>
+
+    <ion-content class="content-bg padding" has-bouncing="false">
         <ion-refresher
             ng-if="!loading"
             pulling-text="Puxe para atualizar..."
@@ -13,15 +23,21 @@
         </div>
 
         <div ng-if="aovivo" class="text-center">
-            <button type="button" class="button button-assertive button-block" ng-click="goAovivo()">
-                Ir para Aovivo
-            </button>
-            <button type="button" class="button button-royal button-small" ng-click="share()">
-                Compartilhar
-            </button>
+            <button
+                type="button"
+                class="button button-outline button-assertive button-block icon ion-play"
+                ng-click="goAovivo()">
+                Ir para o Ao vivo
+<!--             </button>
+            <button
+                type="button"
+                class="button button-royal button-icon-left button-small"
+                ng-click="share()">
+                 Compartilhar
+            </button> -->
         </div>
 
-        <div ng-if="!aovivo">
+        <div ng-if="!aovivo" class="no-content">
             Nenhuma apresentação ao vivo no momento.
         </div>
         

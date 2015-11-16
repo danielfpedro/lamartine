@@ -1,4 +1,28 @@
 angular.module('starter.controllers', [])
+.directive('fillContentHeight', function($window){
+    return {
+        restrict: 'C',
+        link: function(scope, element){
+            function fillHeight() {
+                var windowH = $window.innerHeight;
+                var content = document.getElementsByClassName('scroll-content');
+                var scrollBar = document.getElementsByClassName('scroll-bar');
+                console.log(scrollBar.length);
+                if (scrollBar.length > 1) {
+                  // content[0].removeChild(scrollBar[0]);
+                }
+                var finalH = (windowH - 44);
+                finalH = (ionic.Platform.isIOS()) ? finalH - 15 : finalH;
+                element[0].style.height = finalH + 'px';
+            }
+            fillHeight();
+            $window.addEventListener("resize", fillHeight);
+
+            // document.getElementsByClassName('scroll')[0].remove();
+            ///document.getElementsByClassName('scroll-bar-v')[0].style.visibility = 'hidden';
+        }
+    };
+})
 .directive('myNetworkAlert', function(){
     return {
         templateUrl:  'templates/Element/network_alert.html',
@@ -6,6 +30,10 @@ angular.module('starter.controllers', [])
 })
 .controller('AppCtrl', function(
     $scope,
+    $rootScope,
+    $cordovaToast,
+    $ionicSideMenuDelegate,
+    CustomState,
     Login,
     store
 ) {
@@ -18,13 +46,52 @@ angular.module('starter.controllers', [])
     
 
     $scope.$on('$ionicView.beforeEnter', function(e) {
-        console.log('deletando');
-        store.remove('audios');
         Login.authData().then(function(data){
-            $scope.authData = data;  
+            console.log(data);
+            $rootScope.authData = data;
         });
     });
 
+    /**
+     * Deve ser rootScope pois é acessdo em .run no app.js
+     */
+    $rootScope.doLoginFacebook = function(go){
+        if (prod) {
+            Login
+                .doLoginFacebook()
+                .then(function(){
+                    Login
+                        .authData()
+                        .then(function(data){
+                            $rootScope.authData = data;
+                            if (go) {
+                                CustomState.goRoot(go);
+                            }
+                        });
+                });
+        } else {
+            Login
+                .doLoginFake()
+                .then(function(){
+                    Login
+                        .authData()
+                        .then(function(data){
+                            $rootScope.authData = data;
+                        });
+                });
+        }
+    };
+    $scope.doLogout = function() {
+        Login
+            .doLogout()
+            .then(function(){
+                Login
+                    .authData()
+                    .then(function(data){
+                        $rootScope.authData = data;
+                    });
+            });
+    };
 })
 
 .controller('TestesController', function(
@@ -50,7 +117,8 @@ angular.module('starter.controllers', [])
 .controller('ContatoController', function(
     $scope,
     Contato,
-    dadosGerais
+    dadosGerais,
+    $timeout
 ) {
     $scope.contato = {};
 
@@ -62,9 +130,6 @@ angular.module('starter.controllers', [])
             .then(function(){
                 $scope.contato = {};
             });
-    };
-    $scope.goSocial = function(url){
-        window.open(url, '_system', 'location=yes');
     };
 })
 .controller('AgendaController', function(
@@ -129,7 +194,7 @@ angular.module('starter.controllers', [])
             });
     };
     $scope.share = function(evento){
-        Sharing.share('Evento '+ evento.titulo +' dia ' + moment(event.data).format('DD/MMMM') + '', 'Agenda Lamartine Posella', null, null);
+        Sharing.share('Evento "'+ evento.titulo +'" dia ' + moment(event.data).format('DD/MMMM') + '', 'Agenda Lamartine Posella', null, null);
     };
 })
 .controller('AudiosController', function(
@@ -190,6 +255,7 @@ angular.module('starter.controllers', [])
     };
 
     $scope.goAudio = function(audio){
+        alert(audio);
         window.open(audio.url, '_system', 'location=yes');
     };
     $scope.share = function(audio){
@@ -229,7 +295,7 @@ angular.module('starter.controllers', [])
         window.open($scope.aovivo.link, '_system', 'location=yes');
     };
     $scope.share = function(evento){
-        Sharing.share(null, 'Assista Lamartine Posella Ao vivo em ', null, $scope.aovivo);
+        Sharing.share(null, 'Assista Lamartine Posella Ao vivo em ', null, $scope.aovivo.link);
     };
 })
 .controller('VideosController', function(
@@ -309,6 +375,7 @@ angular.module('starter.controllers', [])
     $scope,
     posts,
     CONFIG,
+    CustomState,
     Sharing,
     Blog
 ) {
@@ -342,13 +409,13 @@ angular.module('starter.controllers', [])
     };
 
     $scope.goBlog = function(url){
-        window.open(url, '_system', 'location=yes');
+        CustomState.goExternal(url);
     };
     $scope.goAllPosts = function(){
         window.open(CONFIG.BLOG_URL, '_system', 'location=yes');
     };
     $scope.share = function(post){
-        Sharing.share(null, 'Eu li "'+post.titulo+'" em ', null, post.link);
+        Sharing.share(null, 'Leia "'+post.titulo+'" no blog de Lamartine Posella', null, post.link);
     };
 })
 .controller('LinhaDoTempoController', function(
@@ -360,9 +427,18 @@ angular.module('starter.controllers', [])
 })
 .controller('BiografiaController', function(
     $scope,
-    dadosGerais
+    contato
 ) {
-    $scope.textos = dadosGerais.textos;
+    $scope.contato = contato;
+    $scope.goSocial = function(url){
+        window.open(url, '_system', 'location=yes');
+    };
+})
+.controller('BiografiaCompletaController', function(
+    $scope,
+    biografia
+) {
+    $scope.biografia = biografia;
 })
 .controller('SairController', function(
     $scope,
@@ -379,28 +455,8 @@ angular.module('starter.controllers', [])
     CustomState,
     CONFIG
 ) {
-    $scope.doLoginFacebook = function(){
-        if (prod) {
-        Login
-            .doLoginFacebook()
-            .then(function(data){
-                $cordovaToast
-                    .show('Olá, você entrou como ' + data.name + '.', 'long', 'bottom');
-                CustomState
-                    .goRoot(CONFIG.DEFAULT_VIEW);
-            }, function(){
-                $cordovaToast
-                    .show('Ocorreu um erro ao tentar comunicar com o Facebook, favor tentar novamente.', 'long', 'bottom');
-            });
-        } else {
-            Login
-                .doLoginFake()
-                .then(function(data){
-                    CustomState.goRoot(CONFIG.DEFAULT_VIEW);
-                });
-        }
-    };
 });
+
 // .controller('Proto', function(
 // $scope
 // ) {

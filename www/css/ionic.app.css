@@ -21,34 +21,6 @@ $dark:                            #444 !default;
   src: url("../fonts/adobe_garamond_regular-webfont.wof") format("wof"), url("../fonts/adobe_garamond_regular-webfont.wof2") format("wof2"), url("../fonts/adobe_garamond_regular-webfont.ttf") format("truetype");
   font-weight: normal; }
 
-.card {
-  -webkit-transform: translate3d(0, 0, 0) !important;
-  transform: translate3d(0, 0, 0) !important;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
-  box-shadow: none !important;
-  border: 1px solid #E7E7E7 !important; }
-
-.post-cover-image {
-  height: 140px;
-  width: 100%;
-  background-color: #DDD;
-  background-size: cover; }
-
-/*Cores*/
-/*Bar Lamartine*/
-.bar-lamartine {
-  background-color: #84703F !important; }
-
-.bar-lamartine .header-item {
-  color: #FFF !important;
-  font-family: "Garamond" !important;
-  text-transform: uppercase !important;
-  font-weight: bold !important; }
-
-.button-lamartine {
-  color: #FFF !important; }
-
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -9115,3 +9087,208 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+/*Cores*/
+/**	Typograph **/
+/*CUSTOMIZAÇÕES DO IONIC*/
+/*$font-family-base: $font-family-lamartine !default;*/
+/*Variáveis*/
+/*CONTENT*/
+/*MENU*/
+/*CARDS*/
+/*Bar Lamartine*/
+/*Button compartilhar*/
+/*$button-card-footer-bg: none;
+$button-card-footer-padding: 0;
+$button-card-footer-border: 0;*/
+/*Button Header*/
+body {
+  font-family: "Garamond" !important; }
+
+p {
+  font-size: 16px;
+  line-height: 23px; }
+
+h1, h2, h3, h4, h5, h6 {
+  color: #84703F;
+  font-family: "Garamond";
+  font-weight: regular; }
+
+h2 {
+  font-size: 24px; }
+
+.textarea-contato {
+  resize: none;
+  height: 180px; }
+
+.button-social:before {
+  font-size: 26px !important; }
+
+.button-logoff {
+  color: #666 !important; }
+
+.button-logoff:before {
+  font-size: 18px !important; }
+
+.bar {
+  border: none !important; }
+
+.content-bg {
+  background-color: #F5F5F5 !important; }
+
+.post-cover-image {
+  height: 140px;
+  width: 100%;
+  background-color: #DDD;
+  background-size: cover; }
+
+/** MENU */
+.menu-lamartine-content {
+  padding-top: 45px;
+  background-color: #FFF; }
+
+.platform-ios .menu-lamartine-content {
+  padding-top: 65px; }
+
+.menu-lamartine > .list {
+  /*margin-top: $menu-margin-top;*/ }
+
+.menu-lamartine > .list > .item {
+  border-color: #F4F4F4;
+  font-family: "Garamond";
+  font-weight: regular;
+  font-size: 18px;
+  color: #1d1d26;
+  text-transform: uppercase; }
+
+.menu-lamartine > .list > .item > a {
+  background-color: #FFF;
+  padding: 15px 0 15px 30px; }
+
+.menu-lamartine > .list > .active > a {
+  background-color: #F8F8F8 !important; }
+
+/*CARD*/
+.lamartine-card {
+  background-color: #FFF;
+  border-color: #F4F4F4;
+  border-width: 0;
+  border-style: solid;
+  margin: 10px 10px 10px 10px;
+  padding: 0;
+  font-family: "Garamond"; }
+
+.lamartine-card-img {
+  width: auto;
+  height: 180px;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: top center;
+  margin: 0; }
+
+.lamartine-card-titulo {
+  color: #84703F;
+  font-size: 20px;
+  padding: 15px 10px 0 10px;
+  font-weight: regular; }
+
+.lamartine-card-chamada {
+  font-family: "Garamond" !important;
+  font-size: 14px;
+  padding: 10px 10px 10px 10px; }
+
+.lamartine-card-footer {
+  margin: 0 10px !important;
+  padding: 2px 0 !important;
+  border-top: 1px solid #F4F4F4 !important; }
+
+/*Button compartilhar*/
+.button-card-footer {
+  /*	min-height: 0!important;
+	padding: $button-card-footer-padding!important;
+	margin: $button-card-footer-margin!important;
+	background: $button-card-footer-bg!important;
+	border: $button-card-footer-border!important;
+	font-size: $button-card-footer-text-size!important*/
+  font-weight: bold !important;
+  margin: 2px 0 !important;
+  color: rgba(0, 0, 0, 0.5) !important; }
+
+.button-card-footer > span.icon:before {
+  /*font-size: $button-card-footer-text-size + 8!important;*/ }
+
+.lamartine-card-date {
+  /*font-family: $card-date-font-family;*/
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+  margin: 0 10px; }
+
+/*NO CONTENT*/
+.no-content {
+  padding: 10px;
+  text-align: center;
+  font-size: 22px;
+  line-height: 25px;
+  color: rgba(0, 0, 0, 0.3);
+  font-family: "Garamond"; }
+
+.button-lamartine-header {
+  color: #FFF !important; }
+
+/*ENTRAR CONTENT*/
+.content-entrar {
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-color: #222;
+  background-image: url(../img/lamartine_entrar.jpg);
+  background-position: center bottom; }
+
+.button-facebook {
+  background-color: #3B5998 !important;
+  border: 0; }
+
+/*BIOGRAFIA*/
+.biografia-container {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+.biografia-img {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1; }
+
+.biografia-sobre {
+  /*flex: 1;*/ }
+
+.biografia-menu {
+  /*flex: 1;*/ }
+
+.biografia-social {
+  /*flex: 1;*/ }
+
+.biografia-contato {
+  /*flex: 1;*/ }
+
+.bar-lamartine {
+  background-color: #84703F !important; }
+
+.bar-lamartine .header-item {
+  color: #FFF !important;
+  font-family: "Garamond" !important;
+  text-transform: uppercase !important;
+  font-weight: bold !important; }
+
+.button-lamartine {
+  color: #FFF !important; }

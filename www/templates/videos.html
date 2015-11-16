@@ -1,5 +1,5 @@
 <ion-view view-title="Vídeos">
-    <ion-content has-bouncing="false">
+    <ion-content has-bouncing="false" class="content-bg">
         <ion-refresher
             ng-if="!loading"
             pulling-text="Puxe para atualizar..."
@@ -12,29 +12,35 @@
             <ion-spinner></ion-spinner>
         </div>
 
-        <div class="card" ng-repeat="video in videos track by $index">
-            <div class="item item-divider">
-                {{video.titulo}}
-            </div>
-            <div class="item item-text-wrap">
+        <ion-list>
+            <div class="lamartine-card" ng-repeat="video in videos track by $index">
                 <div
+                    class="lamartine-card-img"
                     ng-click="goYoutube('{{video.youtubeId}}')"
-                    style="height: 140px; width: 100%; background-color: grey; background-size: cover"
                     preload-bg-image="http://img.youtube.com/vi/{{video.youtubeId}}/mqdefault.jpg"
                     default-image="img/fallback_image.jpg"
                     fallback-image="img/fallback_image.jpg">
                 </div>
-                {{video.chamada}}
-
-                <button 
-                    type="button"
-                    class="button button-clear button-dark icon-left ion-android-share"
-                    ng-click="share(video)">
-                    Compartilhar
-                </button>
-
+                <div
+                    ng-click="goYoutube('{{video.youtubeId}}')"
+                    class="lamartine-card-titulo">
+                    {{video.titulo}}
+                </div>
+                <div
+                    ng-click="goYoutube('{{video.youtubeId}}')"
+                    class="lamartine-card-chamada">
+                    {{video.chamada}}
+                </div>
+                <div class="lamartine-card-footer text-right">
+                    <button 
+                        type="button"
+                        class="button button-icon-left button-clear button-small button-card-footer"
+                        ng-click="share(video)">
+                        <span class="icon ion-android-share"></span> Compartilhar
+                    </button>
+                </div>
             </div>
-        </div>
+        </ion-list>
 
         <div ng-if="videos.length < 1">
             Nenhum vídeo para mostrar

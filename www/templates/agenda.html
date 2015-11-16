@@ -1,5 +1,5 @@
 <ion-view view-title="Agenda">
-    <ion-content has-bouncing="false">
+    <ion-content class="content-bg" has-bouncing="false">
         <ion-refresher
             ng-if="!loading"
             pulling-text="Puxe para atualizar..."
@@ -13,27 +13,29 @@
         </div>
     
         <ion-list>
-            <div class="card" ng-repeat="evento in eventos track by $index">
-                <div class="item item-divider">
+            <div class="lamartine-card" ng-repeat="evento in eventos track by $index">
+                <div class="lamartine-card-titulo">
                     {{evento.titulo}}
                 </div>
-                <div class="item item-text-wrap">
-                    {{evento.texto}}
+                <div class="lamartine-card-date">
+                    {{evento.data | amDateFormat:'D'}} de {{evento.data | amDateFormat:'MMMM'}}
+                </div>
+                <div class="lamartine-card-chamada">
+                    {{evento.chamada}}
+                </div>
+                <div class="lamartine-card-footer text-right">
                     <button 
                         type="button"
-                        class="button button-clear button-dark icon-left ion-android-share"
+                        class="button button-clear button-small button-icon-left button-card-footer"
                         ng-click="share(evento)">
-                        Compartilhar
+                        <span class="icon ion-android-share"></span> Compartilhar
                     </button>
-                </div>
-                <div class="item item-divider">
-                    {{evento.data | amDateFormat:'D'}} de {{evento.data | amDateFormat:'MMMM'}}
                 </div>
             </div>
         </ion-list>
 
-        <div ng-if="eventos.length < 1">
-            Nenhum evento para mostrar
+        <div ng-if="eventos.length < 1" class="no-content">
+            Nenhum evento para mostrar.
         </div>
 
         <ion-infinite-scroll

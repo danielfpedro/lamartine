@@ -3,27 +3,93 @@ angular.module('starter.services', [])
 .factory('DadosGerais', function($q){
     return {
         dados: {
-            biografia: {
-                textos: [
-                    {
-                        titulo: null,
-                        texto: 'Lamartine Posella nasceu em 03 de maio de 1961 em Campinas, interior de São Paulo.'
-                    },
-                    {
-                        titulo: 'Ministério pastoral',
-                        texto: 'O chamado pastoral de Lamartine aconteceu logo após sua conversão durante uma viagem com os Vencedores por Cristo (um grupo muito famoso na década de 80).'
-                    },
-                ]
-            },
-            linhaDoTempo: [
+            biografia: [
                 {
-                    ano: '1963',
-                    texto: 'Nasceu.'
+                    titulo: null,
+                    texto: 'Lamartine Posella nasceu em 03 de maio de 1961 em Campinas, interior de São Paulo. Ainda menino, foi para Olímpia com os pais, onde passou toda a infância. Mais tarde, foi para São Paulo para estudar Engenharia Civil na Universidade Mackenzie. Ao ser despertado pelo chamado pastoral, trocou a engenharia pela teologia. Casado desde 29 de dezembro de 1983 com Lylian Tavares Marques Posella, tem uma filha, Érica, um genro, Ramon, e um neto, Enzo. Atualmente, é apóstolo e pastor presidente da Igreja Batista Palavra Viva em São Paulo e atua como pregador, músico, pianista, violonista, compositor, escritor e conferencista. Lamartine faz da leitura hábito e lazer. Ele lê de dois a três livros por semana e a cada dia se aprofunda nos idiomas que domina e nos assuntos variados que mais o interessam. Um deles é a neurociência. Já foram lidos mais de 20 livros do tema, inclusive de médicos, com o objetivo de passar as informações para o público leigo de forma mais prática.'
                 },
                 {
-                    ano: '1969',
-                    texto: 'Cresceu.'
+                    titulo: 'Ministério pastoral',
+                    texto: 'O chamado pastoral de Lamartine aconteceu logo após sua conversão durante uma viagem com os Vencedores por Cristo (um grupo muito famoso na década de 80).'
+                },
+                {
+                    titulo: 'Carreira Política',
+                    texto: 'Em 1992 surgiu o interesse de Lamartine em ingressar na carreira política. E já no ano de 1994 disputou sua primeira eleição para o cargo de deputado federal em São Paulo. O resultado foi uma suplência, assumindo o cargo dois anos depois da eleição.  Na segunda eleição disputada, em 1998, foi reeleito deputado federal de São Paulo. Logo em seguida, no ano de 2000, candidatou-se a vice-prefeito em São Paulo e depois, em 2002, a governador, também em São Paulo, mas não foi eleito. Lamartine foi representante de sete comissões permanentes da Câmara dos Deputados, são elas: Ciência e Tecnologia; Comunicação e Informática; Direitos Humanos; Economia, Indústria e Comércio; Relações Exteriores e de Defesa Nacional; Seguridade Social e Família e de Trabalho, de Administração e Serviço Público. Ele também participou de comissões especiais e avaliou cinco PECs e dois projetos de lei. Além disso, participou de duas comissões externas e da investigação de uma CPI. Representante da Câmara dos Deputados: na Reunião da Comissão de Desarmamento da ONU, Nova Iorque, EUA, 1998; no XXVIII Programa Brasil/Miami de Política e Administração Pública, Governo Municipal de Miami, EUA, 1998.'
+                },
+                {
+                    titulo: 'Carreira Musical',
+                    texto: 'Músico, pianista, violonista. Lamartine é o quinto filho de uma concertista de piano. Assim, cresceu em uma casa onde todos tocavam o instrumento. Lamartine descobriu nessa época que tem ouvido absoluto e por isso não precisava ler as notas para tocar, bastava apenas ouvi-las para reproduzir. Isso o fez chegar ao quinto ano de piano sem que soubesse ler as notas musicais. Com a musicalidade como herança familiar, na época da faculdade tocou em bares e, depois da conversão ao evangelho, atuou como pianista e tecladista do grupo Vencedores por Cristo e gravou vários discos.'
                 }
+            ],
+            linhaDoTempo: [
+                // {
+                //     ano: '',
+                //     texto: ''
+                // },
+                {
+                    ano: '1961',
+                    texto: 'Nasceu em 03 de Maio'
+                },
+                {
+                    ano: '1979',
+                    texto: 'Iniciou o curso de Engenharia Civil no Mackenzie'
+                },
+                {
+                    ano: '1981',
+                    texto: 'Converteu-se a Jesus'
+                },
+                {
+                    ano: '1987',
+                    texto: 'Formou em Teologia, Consagrado ao Ministério Pastoral'
+                },
+                {
+                    ano: '1989',
+                    texto: 'Fundou a Igreja Batista Palavra Viva'
+                },
+                {
+                    ano: '1996',
+                    texto: 'Deputado Federal por São Paulo'
+                },
+                {
+                    ano: '1998',
+                    texto: 'Reeleição do cargo de Deputado Federal, lançou o livro \'O Céu na terra \' e o CD \'Sonho Brasil\''
+                },
+                {
+                    ano: '2000',
+                    texto: 'Concorreu a Prefeitura de São Paulo e lançou o livro \'Reflexões para o Terceiro Milênio\''
+                },
+                {
+                    ano: '2002',
+                    texto: 'Foi candidato a Governardor de São Paulo e lançou o livro \'Jeová Jireh - No monte do senhor se proverá\''
+                },
+                {
+                    ano: '2002',
+                    texto: 'Lançou o livro \'Segredos da Alma\' e o CD \'Nos montes do Senhor\''
+                },
+                {
+                    ano: '2003',
+                    texto: 'Lançou o livro \'Maravilha Provisão\' e \'Temer ou não temer\''
+                },
+                {
+                    ano: '2006',
+                    texto: 'Foi consagrado ao Apostolado, lançou o livro \'O que não me contaram sobre Jesus\''
+                },
+                {
+                    ano: '2010',
+                    texto: 'Lançou o CD \'Até que todo mundo ouça\''
+                },
+                {
+                    ano: '2011',
+                    texto: 'Lançou o livro \'O Arsenal de guerra do Cristão\''
+                },
+                {
+                    ano: '2014',
+                    texto: 'Lança a série de palavras \'O maravilhoso cérebro e uma mente renovada\''
+                },
+                {
+                    ano: '2015',
+                    texto: 'Atualmente Lamartine Posella é presidente da igreja Batista da Palavra Viva'
+                },
             ],
             contato: {
                 'telefone': '+55 11 3641-3322',
@@ -49,11 +115,6 @@ angular.module('starter.services', [])
                         'nome': 'Twitter',
                         'icon': 'ion-social-twitter',
                         'url': 'https://twitter.com/Lamartineposell'
-                    },
-                    {
-                        'nome': 'Wikipedia',
-                        'icon': 'ion-social-instagram',
-                        'url': 'https://pt.wikipedia.org/wiki/Lamartine_Posella'
                     }
                 ]
             }
@@ -109,6 +170,7 @@ angular.module('starter.services', [])
     $ionicBackdrop,
     $ionicLoading,
     $ionicPlatform,
+    $ionicSideMenuDelegate,
     $q,
     $state,
     $timeout,
@@ -128,41 +190,61 @@ angular.module('starter.services', [])
         },
         authData: function(){
             var defer  = $q.defer();
-            defer.resolve(store.get('authData'));
+            defer.resolve(store.get('authData') || null);
             return defer.promise;
         },
         doLogout: function(){
+            var defer = $q.defer();
+
             var delay = 2000;
 
             $ionicLoading.show({template: 'Saindo, aguarde...'});
 
             store.remove('authData');
+
             if (prod) {
                 $ionicPlatform.ready(function() {
                     $cordovaFacebook
                         .logout()
+                        .then(function(){
+                            // $ionicSideMenuDelegate.toggleLeft();
+                        }, function() {
+                            // $cordovaToast
+                            //     .show('Olá, você entrou como ' + data.name + '.', 'long', 'bottom');
+                            // defer.reject();
+                        })
                         .finally(function(){
                             $timeout(function(){
                                 $ionicLoading.hide();
+                                /**
+                                 * Importante ir para a default view pois ele pode estar em 
+                                 * uma area restrita e deslogar e continuar aessando está área deslogado.
+                                 */
                                 CustomState.goRoot(CONFIG.DEFAULT_VIEW);
+                                defer.resolve();
                             }, delay);
                         });
                 });
             } else {
                 $timeout(function(){
                     $ionicLoading.hide();
-                    CustomState.goRoot(CONFIG.DEFAULT_VIEW);
+                    defer.resolve();
                 }, delay);
             }
+
+            return defer.promise;
         },
         doLoginFacebook: function(){
             var defer  = $q.defer();
             
             $ionicBackdrop.retain();
+            alert('Antes do Ready');
             $ionicPlatform.ready(function() {
+                alert('Dentro do Ready');
                 $cordovaFacebook
                     .login(["public_profile", "email"])
                     .then(function(success) {
+                        alert(success);
 
                         console.log(success);
 
@@ -173,24 +255,32 @@ angular.module('starter.services', [])
                                 $http
                                     .get(CONFIG.WEBSERVICE_URL + 'save_user.php?access_token=' + accessToken)
                                     .success(function(result){
-                                        console.log(accessToken);
-                                        console.log(result);
+                                        // console.log(accessToken);
+                                        // console.log(result);
                                         store.set('authData', data);
+                                        
+                                        // $cordovaToast
+                                        //     .show('Olá, você entrou como ' + data.name + '.', 'long', 'center');
+
+                                        //$ionicSideMenuDelegate.toggleLeft();
+
                                         defer.resolve(data);
                                     })
                                     .error(function(){
                                         $cordovaToast.show('Ocorreu um erro de comunicação com os nossos servidores. Por favor, tente novamente', 'long', 'bottom');
                                         defer.reject();
+                                    })
+                                    .finally(function(){
+                                        $ionicBackdrop.release();
                                     });
                             }, function (error) {
                                 console.log(error);
+                                $cordovaToast.show('Ocorreu um erro na comunicação com o Facebook. Por favor, tente novamente', 'long', 'bottom');
                                 defer.reject();
-                            })
-                            .finally(function(){
-                                $ionicBackdrop.release();
                             });
                     }, function (error) {
-                        console.log(error);
+                        alert('Dentro do erro da tentativa de pegar o authtoken');
+                        $cordovaToast.show('Ocorreu um erro na comunicação com o Facebook. Por favor, tente novamente', 'long', 'bottom');
                         defer.reject();
                         $ionicBackdrop.release();
                     });
@@ -204,7 +294,7 @@ angular.module('starter.services', [])
             $ionicBackdrop.retain();
 
             $timeout(function(){
-                var data = {name: 'Daniel Pedro', id: '08974045'};
+                var data = {name: 'Daniel Pedro', id: '979654248764283'};
                 store.set('authData', data);
                 $ionicBackdrop.release();
                 defer.resolve(data);
@@ -214,6 +304,7 @@ angular.module('starter.services', [])
         }
     };
 })
+
 .factory('Aovivo', function(
     $q,
     $http,
@@ -248,7 +339,7 @@ angular.module('starter.services', [])
 
             InfiniteScroll
                 .all('audios', 'audios.php', refreshed)
-                .then(function(success){
+                .then(function(success) {
                     defer.resolve(success);
                 }, function(error){
                     defer.reject();
@@ -484,9 +575,47 @@ angular.module('starter.services', [])
     };
 }).factory('CustomState', function(
     $ionicHistory,
+    $ionicLoading,
+    $cordovaInAppBrowser,
+    $ionicPlatform,
+    $rootScope,
     $state
 ) {
     return {
+        goExternal: function (url) {
+            $ionicPlatform.ready(function() {
+                var defaultOptions = {
+                    location: 'yes',
+                    clearcache: 'yes',
+                    toolbar: 'no'
+                };
+                $ionicLoading.show({template: 'Abrindo, aguarde...'});
+                $cordovaInAppBrowser.open(url, '_blank', options)
+                    .then(function(event) {
+                    // success
+                    })
+                    .catch(function(event) {
+                        $ionicLoading.hide();
+                    });
+            });
+
+            $rootScope.$on('$cordovaInAppBrowser:loaderror', function(e, event){
+                $ionicLoading.hide();
+            });
+
+            $rootScope.$on('$cordovaInAppBrowser:exit', function(e, event){
+                $ionicLoading.hide();
+            });
+
+            // if (ionic.Platform.isIOS()) {
+            //     alert('Aqui');
+            //     window.open(url, '_blank', 'location=yes');    
+            // } else {
+            //     window.open(url, '_system', 'location=yes');
+            // }
+            
+            return false;
+        },
         goRoot: function(url){
             $ionicHistory.nextViewOptions({
                 historyRoot: true

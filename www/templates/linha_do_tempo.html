@@ -1,14 +1,20 @@
 <ion-view view-title="Linha do Tempo">
-    <ion-content>
+    <ion-content class="content-bg" has-bouncing="false">
         <ion-list>
-            <div ng-repeat="ocorrencia in ocorrencias">
-                <ion-item class="item-divider">
-                    {{ocorrencia.ano}}
-                </ion-item>
-                <ion-item>
+
+            <div
+                class="lamartine-card"
+                ng-repeat="ocorrencia in ocorrencias"
+                style="">
+                <div class="lamartine-card-titulo">
+                    <span class="icon ion-ios-location"></span> {{ocorrencia.ano}}
+                </div>
+                <div class="lamartine-card-chamada" style="padding-bottom: 15px;">
                     {{ocorrencia.texto}}
-                </ion-item>
+                </div>
             </div>
+            <br>
+
         </ion-list>
     </ion-content>
 </ion-view>

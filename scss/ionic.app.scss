@@ -24,12 +24,15 @@ $dark:                            #444 !default;
     font-weight: normal;
 }
 
+// FLEXBOX MIXIN
+@import "www/lib/sass-flex-mixin/_flexbox";
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
-@import "_style";
-@import "_variables";
-@import "_bar";
-
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+
+@import "_variables";
+@import "_style";
+@import "_bar";

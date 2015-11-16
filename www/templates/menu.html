@@ -15,36 +15,61 @@
     </ion-side-menu-content>
 
     <ion-side-menu>
-        <ion-content>
-            <ion-list>
-                <ion-item menu-close href="#/app/biografia">
-                    Biografia
+        <ion-content has-bouncing="false" class="menu-lamartine-content">
+            <ion-list class="menu-lamartine">
+                <ion-item menu-close ui-sref-active="active" ui-sref="app.biografia">
+                    Lamartine Posella
                 </ion-item>
-                <ion-item menu-close ui-sref="app.blog">
+                <ion-item menu-close ui-sref-active="active" ui-sref="app.blog">
                     Blog
                 </ion-item>
-                <ion-item menu-close ui-sref="app.audios">
-                    Audios
+                <ion-item menu-close ui-sref-active="active" ui-sref="app.audios">
+                    Áudios
                 </ion-item>
-                <ion-item menu-close href="#/app/aovivo">
+                <ion-item menu-close ui-sref-active="active" ui-sref="app.aovivo">
                     Aovivo
                 </ion-item>
-                <ion-item menu-close href="#/app/videos">
+                <ion-item menu-close ui-sref-active="active" ui-sref="app.videos">
                     Vídeos
                 </ion-item>
-                <ion-item menu-close ui-sref="app.agenda">
+                <ion-item menu-close ui-sref-active="active" ui-sref="app.agenda">
                     Agenda
                 </ion-item>
-                <ion-item menu-close ui-sref="app.contato">
+                <ion-item menu-close ui-sref-active="active" ui-sref="app.contato">
                     Contato
                 </ion-item>
             </ion-list>
-            <a href="#/app/entrar" menu-close class="button" ng-if="!authData">
-                Entrar
-            </a>
-            <a href="#/sair" menu-close class="button" ng-if="authData">
-                Sair
-            </a>
+
+            <div class="padding" style="padding-top: 60px;" ng-if="!authData">
+                <button
+                    type="button"
+                    class="button button-positive button-block button-facebook button-small icon ion-social-facebook"
+                    ng-click="doLoginFacebook(null)">
+                    &nbsp;Entrar com Facebook
+                </button>
+            </div>
         </ion-content>
+
+        <ion-footer-bar align-title="left" ng-show="authData">
+            <img
+                preload-imag
+                default-image="img/fallback_image.jpg"
+                fallback-image="img/fallback_image.jpg"
+                ng-src="https://graph.facebook.com/{{authData.id}}/picture"
+                style="width: 30px; height: 30px; border-radius: 100%;margin-top: 3px;"> 
+            <div style="font-size: 16px;margin-left: 10px; margin-top: 9px;color: #777;">
+                {{authData.name}}
+            </div>
+            <div class="title"></div>
+            <div class="buttons">
+                <button
+                    ng-click="doLogout()"
+                    type="button"
+                    href="#app/configuracoes-de-conta"
+                    class="button button-icon icon ion-power button-logoff">
+                </button>
+            </div>
+        </ion-footer-bar>
+
     </ion-side-menu>
 </ion-side-menus>

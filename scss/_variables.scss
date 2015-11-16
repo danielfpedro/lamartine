@@ -1,7 +1,89 @@
 /*Cores*/
 $lamartine: #84703F;
+$facebook: #3B5998;
+
+$font-family-lamartine: "Garamond";
+
+/**	Typograph **/
+$h-font-family: $font-family-lamartine;
+$h-font-weight: regular;
+
+$h2-font-size: 24px;
+
+$p-font-size: 16px;
+$p-line-height: 23px;
+
+/*CUSTOMIZAÇÕES DO IONIC*/
+/*$font-family-base: $font-family-lamartine !default;*/
+
+/*Variáveis*/
+$border-color: #F4F4F4;
+
+
+/*CONTENT*/
+$content-bg-color: #F5F5F5;
+
+/*MENU*/
+$menu-font-family: "Garamond";
+$menu-bgcolor: #FFF;
+$menu-border-color: $border-color;
+$menu-font-size: 18px;
+$menu-font-weight: regular;
+$menu-padding: 15px 0 15px 30px;
+$menu-margin-top: 0;
+$menu-font-color: #1d1d26;
+$menu-text-transform: uppercase;
+$menu-padding-top: 45px;
+$menu-ios-padding-top: $menu-padding-top + 20px;
+
+/*CARDS*/
+$card-bgcolor: #FFF;
+$card-border-color: $border-color;
+$card-border-width: 0;
+$card-border-style: solid;
+$card-font-family: "Garamond";
+$card-margin: 10px 10px 10px 10px;
+$card-padding: 0;
+$card-border-radius: 0;
+
+$card-img-width: auto;
+$card-img-height: 180px;
+$card-img-size: cover;
+$card-img-position: top center;
+$card-img-margin: 0;
+$card-img-padding: 0;
+
+$card-titulo-padding: 15px 10px 0 10px;
+$card-titulo-weight: regular;
+$card-titulo-font-size: 20px;
+$card-titulo-font-color: $lamartine;
+
+$card-date-margin: 0 10px;
+$card-date-font-size: 14px;
+$card-date-font-color: rgba(#000, .5);
+
+$card-chamada-padding: 10px 10px 10px 10px;
+$card-chamada-font-family: $font-family-lamartine;
+$card-chamada-font-size: $card-titulo-font-size - 6;
+
+$card-footer-border-top: 1px solid $border-color;
+$card-footer-margin: 0 10px;
+$card-footer-padding: 2px 0;
 
 /*Bar Lamartine*/
 $bar-lamartine-bg: $lamartine!default;
 $bar-lamartine-text: #FFF !default;
 $bar-lamartine-font-family: 'Garamond' !default;
+
+/*Button compartilhar*/
+/*$button-card-footer-bg: none;
+$button-card-footer-padding: 0;
+$button-card-footer-border: 0;*/
+$button-card-footer-margin: 2px 0;
+$button-card-footer-font-color: rgba(#000, .5);
+$button-card-footer-font-weight: bold;
+
+$button-card-footer-text-size: 12px;
+
+/*Button Header*/
+$button-header-text-color: #FFF;
