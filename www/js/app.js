@@ -18,7 +18,8 @@ angular.module('starter', [
 ])
 
 .constant('CONFIG', {
-    WEBSERVICE_URL: (prod) ? 'http://www.lamartineposella.com.br/api/' : 'http://192.168.254.200:8081/lamartine/api/',
+    // WEBSERVICE_URL: (prod) ? 'http://www.lamartineposella.com.br/api/' : 'http://192.168.254.200:8081/lamartine/api/',
+    WEBSERVICE_URL: (prod) ? 'http://www.lamartineposella.com.br/api/' : 'http://www.lamartineposella.com.br/api/',
     DEFAULT_VIEW_URL: 'app/biografia',
     DEFAULT_VIEW: 'app.biografia',
     BLOG_URL: 'http://www.lamartineposella.com.br/blog/',

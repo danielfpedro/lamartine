@@ -168,6 +168,117 @@ angular.module('starter.services', [])
         }
     };
 })
+
+.factory('Notification', function(
+    $q,
+    $http,
+    $ionicPlatform,
+    $rootScope,
+    $cordovaDevice,
+    CONFIG,
+    store
+){
+    return {
+        register: function(){
+
+            var defer = $q.defer();
+            var _this = this;
+
+            if (ionic.Platform.isIOS() && prod) {
+                _this
+                    .registerIos()
+                    .then(function(){
+                        defer.resolve();
+                    }, function(){
+                        defer.reject();
+                    });
+            } else {
+                _this
+                    .registerAndroid()
+                    .then(function(regId){
+                        var registeredBefore = store.get('regIdRegistered') || false;
+                        console.log('Valor do registered Before');
+                        console.log(registeredBefore);
+                        if (!registeredBefore) {
+
+                            var uuid = (prod) ? $cordovaDevice.getUUID() : '123';
+                            var platform = (prod) ? $cordovaDevice.getPlatform() : 'android';
+
+                            console.log(regId);
+                            console.log(uuid);
+
+                            console.log('Salvando');
+                            _this
+                                .saveRegId(uuid, regId, platform)
+                                .then(function(){
+                                    defer.resolve();
+                                }, function (){
+                                    console.log('deu ruim para salvar');
+                                    defer.reject();
+                                });
+                        }
+                    }, function(){
+                        defer.reject();
+                    });
+            }
+            return defer.promise;
+        },
+        saveRegId: function(uuid, regId, platform){
+
+            var defer = $q.defer();
+            console.log('Indo no servidor salvar o regid');
+            $http
+                .post(CONFIG.WEBSERVICE_URL + 'salva_regid.php', {uuid: uuid, regid: regId, platform: platform})
+                .then(function(){
+                    console.log('FOi no servidor e voltou jóia');
+                    store.set('regIdRegistered', true);
+                    defer.resolve();
+                }, function(){
+                    console.log('FOi no servidor e voltou reuim, deu erro rsrsrs');
+                    defer.reject();
+                });
+
+            return defer.promise;
+        },
+        registerAndroid: function(){
+            var defer = $q.defer();
+            if (!prod) {
+                defer.resolve('123regid');
+                return defer.promise;
+            }
+
+            ionic.Platform.ready(function(){
+                var push = PushNotification.init({
+                    "android": {
+                        "senderID": "1004540944791",
+                        "icon": "www/img/push_notification_icon.png"
+                    },
+                    "ios": {
+                        "alert": "true",
+                        "badge": "true",
+                        "sound": "true"
+                    }
+                });
+                push.on('registration', function(data) {
+                    console.log('Registrado');
+                    console.log(data.registrationId);
+                    defer.resolve(data.registrationId);
+                });
+                push.on('error', function(e) {
+                    console.log('deu erro no registro');
+                    console.log(e.message);
+                    defer.reject();
+                });
+
+            });
+            return defer.promise;
+        },
+        registerIos: function(){
+
+        },
+    };
+})
+
 .factory('Login', function(    
     $cordovaFacebook,
     $cordovaToast,

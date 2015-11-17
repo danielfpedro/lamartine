@@ -33,6 +33,7 @@ angular.module('starter.controllers', [])
     $rootScope,
     $cordovaToast,
     $ionicSideMenuDelegate,
+    Notification,
     CustomState,
     Login,
     store
@@ -50,6 +51,11 @@ angular.module('starter.controllers', [])
             console.log(data);
             $rootScope.authData = data;
         });
+        /**
+         * Registra em todas as views e caso não tenha salvo no banco, salvo.
+         * OBS.: Sabemos se salvou no banco através do cache local que informa
+         */
+        Notification.register();
     });
 
     /**
