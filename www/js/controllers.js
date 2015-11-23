@@ -23,6 +23,11 @@ angular.module('starter.controllers', [])
         }
     };
 })
+.filter('badgeMax', function(){
+    return function(value, max){
+        return (value > max) ? max + '+' : value;
+    };
+})
 .directive('myNetworkAlert', function(){
     return {
         templateUrl:  'templates/Element/network_alert.html',
@@ -140,6 +145,10 @@ angular.module('starter.controllers', [])
 })
 .controller('AgendaController', function(
     $scope,
+    $rootScope,
+    $timeout,
+    $ionicScrollDelegate,
+    Notification,
     Agenda,
     Sharing,
     eventos,
@@ -150,23 +159,20 @@ angular.module('starter.controllers', [])
 
     $scope.$on( "$ionicView.beforeEnter", function(scopes, states) {
         
-        if (eventos.length < 1) {
+        if (eventos.length < 1 || $rootScope.badges.agenda > 0) {
             $scope.loading = true;
-            $scope.modeDataCanBeLoaded = false;
-            Agenda
-                .all(true)
-                .then(function(data){
-                    $scope.eventos = data;
-                })
-                .finally(function(){
-                    $scope.modeDataCanBeLoaded = true;
-                    $scope.loading = false;
-                });
+            $scope.getRefreshed();
         } else {
             $scope.modeDataCanBeLoaded = true;
         }
 
     });
+
+    $scope.refreshByButton = function() {
+        $scope.loading = true;
+        $scope.getRefreshed();
+    };
+
     $scope.loadMore = function(){
         Agenda
             .all()
@@ -187,17 +193,27 @@ angular.module('starter.controllers', [])
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             });
     };
+    $scope.getRefreshed = function(){
+        $ionicScrollDelegate.scrollTop();
+        Notification.hideBtnsRefresh('blog');
+        $scope.moreDataCanBeLoaded = false;
+        $timeout(function(){
+            Agenda
+                .all(true)
+                .then(function(data){
+                    Notification.resetBadge('agenda');
+                    $scope.agenda = data;
+                })
+                .finally(function(){
+                    $scope.moreDataCanBeLoaded = true;
+                    $scope.loading = false;
+                    $scope.$broadcast('scroll.refreshComplete');
+                });  
+        }, 2000);
+    };
     $scope.doRefresh = function() {
         $scope.moreDataCanBeLoaded = false;
-        Agenda
-            .all(true)
-            .then(function(data){
-                $scope.eventos = data;
-            })
-            .finally(function(){
-                $scope.moreDataCanBeLoaded = true;
-                $scope.$broadcast('scroll.refreshComplete');
-            });
+        $scope.getRefreshed();
     };
     $scope.share = function(evento){
         Sharing.share('Evento "'+ evento.titulo +'" dia ' + moment(event.data).format('DD/MMMM') + '', 'Agenda Lamartine Posella', null, null);
@@ -206,6 +222,10 @@ angular.module('starter.controllers', [])
 .controller('AudiosController', function(
     $scope,
     CustomState,
+    Notification,
+    $ionicScrollDelegate,
+    $timeout,
+    $rootScope,
     Sharing,
     audios,
     Audios
@@ -214,31 +234,40 @@ angular.module('starter.controllers', [])
 
     $scope.$on( "$ionicView.beforeEnter", function(scopes, states) {
         
-        if (audios.length < 1) {
+        if (audios.length < 1 || $rootScope.badges.audios > 0) {
             $scope.loading = true;
             $scope.getRefreshed();
         } else {
             $scope.modeDataCanBeLoaded = true;
         }
-
     });
 
     $scope.doRefresh = function() {
         $scope.getRefreshed();
     };
 
+    $scope.refreshByButton = function() {
+        $scope.loading = true;
+        $scope.getRefreshed();
+    };
+
     $scope.getRefreshed = function(){
+        Notification.hideBtnsRefresh('audios');
+        $ionicScrollDelegate.scrollTop();
         $scope.moreDataCanBeLoaded = false;
-        Audios
-            .all(true)
-            .then(function(data){
-                $scope.audios = data;
-            })
-            .finally(function(){
-                $scope.moreDataCanBeLoaded = true;
-                $scope.loading = false;
-                $scope.$broadcast('scroll.refreshComplete');
-            });  
+        $timeout(function(){
+            Audios
+                .all(true)
+                .then(function(data){
+                    Notification.resetBadge('audios');
+                    $scope.audios = data;
+                })
+                .finally(function(){
+                    $scope.moreDataCanBeLoaded = true;
+                    $scope.loading = false;
+                    $scope.$broadcast('scroll.refreshComplete');
+                });  
+        }, 2000);
     };
 
     $scope.loadMore = function(){
@@ -324,7 +353,6 @@ angular.module('starter.controllers', [])
     
     $scope.$on( "$ionicView.beforeEnter", function(scopes, states) {
         if (videos.length < 1 || $rootScope.badges.videos > 0) {
-            console.log('caiu no if para refresh');
             $scope.loading = true;
             $scope.getRefreshed();    
         } else {
@@ -340,12 +368,12 @@ angular.module('starter.controllers', [])
     };
     $scope.getRefreshed = function(){
         $ionicScrollDelegate.scrollTop();
+        Notification.hideBtnsRefresh('blog');
         $scope.moreDataCanBeLoaded = false;
         Videos
             .all(true)
             .then(function(data){
                 Notification.resetBadge('videos');
-                $rootScope.btnsRefresh.videos = false;
                 $scope.videos = data;
             })
             .finally(function(){
@@ -389,9 +417,13 @@ angular.module('starter.controllers', [])
 })
 .controller('BlogController', function(
     $scope,
+    $rootScope,
     posts,
     CONFIG,
     CustomState,
+    Notification,
+    $ionicScrollDelegate,
+    $timeout,
     Sharing,
     Blog
 ) {
@@ -401,7 +433,7 @@ angular.module('starter.controllers', [])
     $scope.$on( "$ionicView.beforeEnter", function(scopes, states) {
         $scope.imagemBaseUrl = CONFIG.BLOG_IMAGEM_BASEURL;
 
-        if (posts.length < 1) {
+        if (posts.length < 1 || $rootScope.badges.blog > 0) {
             $scope.loading = true;
             $scope.all();
         }
@@ -412,16 +444,26 @@ angular.module('starter.controllers', [])
         $scope.all();
     };
 
+    $scope.refreshByButton = function() {
+        $scope.loading = true;
+        $scope.all();
+    };
+
     $scope.all = function(){
-        Blog
-            .all()
-            .then(function(data){
-                $scope.posts = data;
-            })
-            .finally(function(){
-                $scope.loading = false;
-                $scope.$broadcast('scroll.refreshComplete');
-            });
+        $ionicScrollDelegate.scrollTop();
+        Notification.hideBtnsRefresh('blog');
+        $timeout(function(){
+            Blog
+                .all()
+                .then(function(data){
+                    Notification.resetBadge('blog');
+                    $scope.posts = data;
+                })
+                .finally(function(){
+                    $scope.loading = false;
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+        });
     };
 
     $scope.goBlog = function(url){

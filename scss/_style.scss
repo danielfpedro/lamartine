@@ -187,3 +187,22 @@ h2 {
 .biografia-contato {
 	/*flex: 1;*/
 }
+
+/*BTN REFRESH CONTENT*/
+.btn-refresh-content {
+	color: $btn-font-color;
+	font-family: $btn-refresh-content-font-family;
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	background-color: $btn-refresh-bg-color;
+	width: 200px;
+	padding: 7px;
+	text-align: center;
+	left: 50%;
+	margin-left: -100px;
+	margin-top: $btn-refresh-margin-top;
+	border-radius: $btn-refresh-border-radius;
+	-webkit-border-radius: $btn-refresh-border-radius;
+	font-weight: $btn-refresh-font-weight;
+}

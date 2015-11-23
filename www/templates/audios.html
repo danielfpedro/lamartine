@@ -1,4 +1,12 @@
 <ion-view view-title="Áudios">
+
+    <div
+        ng-if="btnsRefresh.audios"
+        class="btn-refresh-content"
+        ng-click="refreshByButton()">
+            Atualizar conteúdo
+    </div>
+
     <ion-content class="content-bg" has-bouncing="false">
         <ion-refresher
             ng-if="!loading"

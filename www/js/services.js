@@ -295,7 +295,7 @@ angular.module('starter.services', [])
                             // $cordovaToast.show('Conteúdo novo disponível, atualize para visualizar.', 'long', 'bottom');
                         } else {
                             console.log('Faz beep');
-                            $cordovaToast.show('Conteúdo novo adicionado em ' + additionalData.tipo, 'short', 'bottom');
+                            $cordovaToast.show('Conteúdo novo adicionado em ' + additionalData.tipo + '.', 'short', 'bottom');
                             // $cordovaLocalNotification.schedule({
                             //         id: _this.getLocalNotificationIdByTipo(additionalData.tipo),
                             //         title: data.title,
@@ -346,32 +346,21 @@ angular.module('starter.services', [])
             $rootScope.badges[tipo] = 0;
             store.set('badges', $rootScope.badges);
         },
-        showToast: function(tipo){
-            var message = '';
-            switch(tipo){
-                case 'video':
-                    message = 'Um novo vídeo foi adicionado, não perca.';
-                    break;
-            }
+        hideBtnsRefresh: function(tipo){
+            $rootScope.btnsRefresh[tipo] = false;
         },
         getStateByTipo: function(tipo){
-            var out = '';
-            switch(tipo){
-                case 'videos':
-                    out = 'app.videos';
-                    break;
-            }
-            return out;
+            return 'app.' + tipo;
         },
-        getLocalNotificationIdByTipo: function(tipo){
-            var out = '';
-            switch(tipo){
-                case 'videos':
-                    out = 1;
-                    break;
-            }
-            return out;
-        },
+        // getLocalNotificationIdByTipo: function(tipo){
+        //     var out = '';
+        //     switch(tipo){
+        //         case 'videos':
+        //             out = 1;
+        //             break;
+        //     }
+        //     return out;
+        // },
         registerIos: function(){
 
         },
@@ -452,37 +441,35 @@ angular.module('starter.services', [])
         doLoginFacebook: function(){
             var defer  = $q.defer();
             
-            // $ionicBackdrop.retain();
+            $ionicBackdrop.retain();
 
             facebookConnectPlugin.login(["public_profile", "email"], function(data) {
-                facebookConnectPlugin.getAccessToken(function(accessToken) {
-                    $http
-                        .get(CONFIG.WEBSERVICE_URL + 'save_user.php?access_token=' + accessToken)
-                        .success(function(result){
-                            // console.log(accessToken);
-                            // console.log(result);
-                            store.set('authData', data);
-                            
-                            // $cordovaToast
-                            //     .show('Olá, você entrou como ' + data.name + '.', 'long', 'center');
+                console.log('Valor do data');
+                console.log(data);
+                console.log('Access Token');
+                console.log(data.authResponse.accessToken);
+                $http
+                    // .get(CONFIG.WEBSERVICE_URL + 'save_user.php?access_token=' + data.authResponse.accessToken)
+                    .get(CONFIG.WEBSERVICE_URL + 'save_user.php?access_token=' + data.authResponse.accessToken)
+                    .success(function(result){
+                        // console.log(accessToken);
+                        // console.log(result);
+                        store.set('authData', result.data);
+                        
+                        // $cordovaToast
+                        //     .show('Olá, você entrou como ' + data.name + '.', 'long', 'center');
 
-                            //$ionicSideMenuDelegate.toggleLeft();
+                        //$ionicSideMenuDelegate.toggleLeft();
 
-                            defer.resolve(data);
-                        })
-                        .error(function(){
-                            $cordovaToast.show('Ocorreu um erro de comunicação com os nossos servidores. Por favor, tente novamente', 'long', 'bottom');
-                            defer.reject();
-                        })
-                        .finally(function(){
-                            $ionicBackdrop.release();
-                        });
-                }, function() {
-                    console.log('deu erro ao pegar o token');
-                    $ionicBackdrop.release();
-                    defer.reject();
-                });
-                
+                        defer.resolve(data);
+                    })
+                    .error(function(){
+                        $cordovaToast.show('Ocorreu um erro de comunicação com os nossos servidores. Por favor, tente novamente', 'long', 'bottom');
+                        defer.reject();
+                    })
+                    .finally(function(){
+                        $ionicBackdrop.release();
+                    });
             }, function (error) {
                 $ionicBackdrop.release();
                 console.log('erro ao logar');

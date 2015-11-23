@@ -9109,6 +9109,7 @@ a.button {
 $button-card-footer-padding: 0;
 $button-card-footer-border: 0;*/
 /*Button Header*/
+/*BTN refresh content*/
 body {
   font-family: "Garamond" !important; }
 
@@ -9294,6 +9295,24 @@ h2 {
 
 .biografia-contato {
   /*flex: 1;*/ }
+
+/*BTN REFRESH CONTENT*/
+.btn-refresh-content {
+  color: #FFF;
+  font-family: "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  background-color: #84703F;
+  width: 200px;
+  padding: 7px;
+  text-align: center;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: 50px;
+  border-radius: 200px;
+  -webkit-border-radius: 200px;
+  font-weight: regular; }
 
 .bar-lamartine {
   background-color: #84703F !important; }

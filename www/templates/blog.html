@@ -1,4 +1,12 @@
 <ion-view view-title="Blog">
+
+    <div
+        ng-if="btnsRefresh.blog"
+        class="btn-refresh-content"
+        ng-click="refreshByButton()">
+            Atualizar conteúdo
+    </div>
+
     <ion-content class="content-bg" has-bouncing="false">
         <ion-refresher
             ng-if="!loading"
