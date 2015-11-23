@@ -20,8 +20,8 @@ angular.module('starter', [
 .constant('CONFIG', {
     // WEBSERVICE_URL: (prod) ? 'http://www.lamartineposella.com.br/api/' : 'http://192.168.254.200:8081/lamartine/api/',
     WEBSERVICE_URL: (prod) ? 'http://www.lamartineposella.com.br/api/' : 'http://www.lamartineposella.com.br/api/',
-    DEFAULT_VIEW_URL: 'app/biografia',
-    DEFAULT_VIEW: 'app.biografia',
+    DEFAULT_VIEW_URL: 'app/videos',
+    DEFAULT_VIEW: 'app.videos',
     BLOG_URL: 'http://www.lamartineposella.com.br/blog/',
     BLOG_IMAGEM_BASEURL: 'http://www.lamartineposella.com.br/site/images/blog/',
     HTTP_TIMEOUT: 15000
@@ -35,9 +35,21 @@ angular.module('starter', [
     $cordovaToast,
     $cordovaDialogs,
     $rootScope,
+    $timeout,
     $cordovaStatusbar,
+    Notification,
+    store,
     CONFIG
 ) {
+    /**
+     * Criando a variavel no rootScope com os badges
+     */
+    $rootScope.badges = store.get('badges') || {};
+    /**
+     * Inicia a variavel no rootscope btnsRefresher
+     */
+    $rootScope.btnsRefresh = {};
+
     /**
      * Quando um view que requer auth é acessada sem estar logado
      * ela rejeita a promise e retorna "AUTH_REQUIRED", isso diferencia de outros erros
@@ -67,6 +79,14 @@ angular.module('starter', [
      * @type {Boolean}
      */
     $rootScope.isOnline = true;
+
+    // $rootScope.buttonVideoRefresher = false;
+
+    // $timeout(function(){
+    //     console.log('Apareça botao meu filhao');
+    //     //$rootScope.buttonVideoRefresher = true;
+    //     // $rootScope.isOnline = false;
+    // }, 3000);
 
     $ionicPlatform.ready(function() {
 

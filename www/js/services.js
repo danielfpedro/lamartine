@@ -174,7 +174,13 @@ angular.module('starter.services', [])
     $http,
     $ionicPlatform,
     $rootScope,
+    $cordovaLocalNotification,
+    $ionicHistory,
+    $cordovaToast,
+    $timeout,
     $cordovaDevice,
+    $cordovaDialogs,
+    CustomState,
     CONFIG,
     store
 ){
@@ -210,8 +216,8 @@ angular.module('starter.services', [])
                             console.log('Salvando');
                             _this
                                 .saveRegId(uuid, regId, platform)
-                                .then(function(){
-                                    defer.resolve();
+                                .then(function(result){
+                                    defer.resolve(result);
                                 }, function (){
                                     console.log('deu ruim para salvar');
                                     defer.reject();
@@ -229,10 +235,15 @@ angular.module('starter.services', [])
             console.log('Indo no servidor salvar o regid');
             $http
                 .post(CONFIG.WEBSERVICE_URL + 'salva_regid.php', {uuid: uuid, regid: regId, platform: platform})
-                .then(function(){
-                    console.log('FOi no servidor e voltou jóia');
-                    store.set('regIdRegistered', true);
-                    defer.resolve();
+                .then(function(result){
+                    console.log('Foi no servidor e voltou jóia');
+                    /**
+                     * Garanto que realmente salvou
+                     */
+                    if (result.data.data == 'lamartine') {
+                        store.set('regIdRegistered', true);   
+                    }
+                    defer.resolve(result);
                 }, function(){
                     console.log('FOi no servidor e voltou reuim, deu erro rsrsrs');
                     defer.reject();
@@ -242,6 +253,7 @@ angular.module('starter.services', [])
         },
         registerAndroid: function(){
             var defer = $q.defer();
+            var _this = this;
             if (!prod) {
                 defer.resolve('123regid');
                 return defer.promise;
@@ -250,8 +262,7 @@ angular.module('starter.services', [])
             ionic.Platform.ready(function(){
                 var push = PushNotification.init({
                     "android": {
-                        "senderID": "1004540944791",
-                        "icon": "www/img/push_notification_icon.png"
+                        "senderID": "1004540944791"
                     },
                     "ios": {
                         "alert": "true",
@@ -264,14 +275,102 @@ angular.module('starter.services', [])
                     console.log(data.registrationId);
                     defer.resolve(data.registrationId);
                 });
+                push.on('notification', function(data) {
+                    console.log(data);
+                    var additionalData = data.additionalData;
+                    /**
+                     * Incrementa badge
+                     * OBS.: Da uns bugs se nao enrolar no timeout
+                     */
+                    $timeout(function(){
+                        _this.incrementBadge(additionalData.tipo);    
+                    });
+                    if (additionalData.foreground) {
+                        $cordovaDialogs.beep(1);
+
+                        if (_this.getStateByTipo(additionalData.tipo) == $ionicHistory.currentStateName()) {
+                            $timeout(function(){
+                                $rootScope.btnsRefresh[additionalData.tipo] = true;
+                            }, 1000);
+                            // $cordovaToast.show('Conteúdo novo disponível, atualize para visualizar.', 'long', 'bottom');
+                        } else {
+                            console.log('Faz beep');
+                            $cordovaToast.show('Conteúdo novo adicionado em ' + additionalData.tipo, 'short', 'bottom');
+                            // $cordovaLocalNotification.schedule({
+                            //         id: _this.getLocalNotificationIdByTipo(additionalData.tipo),
+                            //         title: data.title,
+                            //         text: data.message,
+                            //         icon: "file://img/icon_notification.png",
+                            //         data: additionalData
+                            //     }).then(function (result) {
+                            //     });
+                            //     $rootScope.$on('$cordovaLocalNotification:click',
+                            //         function (event, notification, state) {
+                            //             // alert(notification);
+                            //             var data = JSON.parse(notification.data);
+                            //             store.set(data.tipo + 'Refresh', true);
+                            //             CustomState.goRoot(_this.getStateByTipo(data.tipo));
+                            //         });
+                        }
+                        console.log($ionicHistory.currentStateName());
+                        //$cordovaToast();
+                    } else {
+                        CustomState.goRoot(_this.getStateByTipo(additionalData.tipo));
+                    }
+                    // data.message,
+                    // data.title,
+                    // data.count,
+                    // data.sound,
+                    // data.image,
+                    // data.additionalData
+                });
                 push.on('error', function(e) {
                     console.log('deu erro no registro');
                     console.log(e.message);
                     defer.reject();
                 });
-
             });
             return defer.promise;
+        },
+        incrementBadge: function(tipo){
+            var currentValue = (typeof $rootScope.badges[tipo] == 'undefined') ? 0 : $rootScope.badges[tipo];
+            console.log('CurrentValue de badges["videos"]');
+            console.log(currentValue);
+            var newValue = currentValue + 1;
+            console.log('Novo valor para badges.' + tipo + ' é ' + newValue );
+            $rootScope.badges[tipo] = newValue;
+            store.set('badges', $rootScope.badges);
+        },
+        resetBadge: function(tipo){
+            var badges = store.get('badges');
+            $rootScope.badges[tipo] = 0;
+            store.set('badges', $rootScope.badges);
+        },
+        showToast: function(tipo){
+            var message = '';
+            switch(tipo){
+                case 'video':
+                    message = 'Um novo vídeo foi adicionado, não perca.';
+                    break;
+            }
+        },
+        getStateByTipo: function(tipo){
+            var out = '';
+            switch(tipo){
+                case 'videos':
+                    out = 'app.videos';
+                    break;
+            }
+            return out;
+        },
+        getLocalNotificationIdByTipo: function(tipo){
+            var out = '';
+            switch(tipo){
+                case 'videos':
+                    out = 1;
+                    break;
+            }
+            return out;
         },
         registerIos: function(){
 
@@ -353,54 +452,91 @@ angular.module('starter.services', [])
         doLoginFacebook: function(){
             var defer  = $q.defer();
             
-            $ionicBackdrop.retain();
-            alert('Antes do Ready');
-            $ionicPlatform.ready(function() {
-                alert('Dentro do Ready');
-                $cordovaFacebook
-                    .login(["public_profile", "email"])
-                    .then(function(success) {
-                        alert(success);
+            // $ionicBackdrop.retain();
 
-                        console.log(success);
+            facebookConnectPlugin.login(["public_profile", "email"], function(data) {
+                facebookConnectPlugin.getAccessToken(function(accessToken) {
+                    $http
+                        .get(CONFIG.WEBSERVICE_URL + 'save_user.php?access_token=' + accessToken)
+                        .success(function(result){
+                            // console.log(accessToken);
+                            // console.log(result);
+                            store.set('authData', data);
+                            
+                            // $cordovaToast
+                            //     .show('Olá, você entrou como ' + data.name + '.', 'long', 'center');
 
-                        var accessToken = success.authResponse.accessToken;
+                            //$ionicSideMenuDelegate.toggleLeft();
 
-                        $cordovaFacebook.api("me", ["public_profile"])
-                            .then(function(data) {
-                                $http
-                                    .get(CONFIG.WEBSERVICE_URL + 'save_user.php?access_token=' + accessToken)
-                                    .success(function(result){
-                                        // console.log(accessToken);
-                                        // console.log(result);
-                                        store.set('authData', data);
-                                        
-                                        // $cordovaToast
-                                        //     .show('Olá, você entrou como ' + data.name + '.', 'long', 'center');
-
-                                        //$ionicSideMenuDelegate.toggleLeft();
-
-                                        defer.resolve(data);
-                                    })
-                                    .error(function(){
-                                        $cordovaToast.show('Ocorreu um erro de comunicação com os nossos servidores. Por favor, tente novamente', 'long', 'bottom');
-                                        defer.reject();
-                                    })
-                                    .finally(function(){
-                                        $ionicBackdrop.release();
-                                    });
-                            }, function (error) {
-                                console.log(error);
-                                $cordovaToast.show('Ocorreu um erro na comunicação com o Facebook. Por favor, tente novamente', 'long', 'bottom');
-                                defer.reject();
-                            });
-                    }, function (error) {
-                        alert('Dentro do erro da tentativa de pegar o authtoken');
-                        $cordovaToast.show('Ocorreu um erro na comunicação com o Facebook. Por favor, tente novamente', 'long', 'bottom');
-                        defer.reject();
-                        $ionicBackdrop.release();
-                    });
+                            defer.resolve(data);
+                        })
+                        .error(function(){
+                            $cordovaToast.show('Ocorreu um erro de comunicação com os nossos servidores. Por favor, tente novamente', 'long', 'bottom');
+                            defer.reject();
+                        })
+                        .finally(function(){
+                            $ionicBackdrop.release();
+                        });
+                }, function() {
+                    console.log('deu erro ao pegar o token');
+                    $ionicBackdrop.release();
+                    defer.reject();
+                });
+                
+            }, function (error) {
+                $ionicBackdrop.release();
+                console.log('erro ao logar');
+                console.error(error);
+                defer.reject();
             });
+
+            // alert('Antes do Ready');
+            // $ionicPlatform.ready(function() {
+            //     alert('Dentro do Ready');
+            //     $cordovaFacebook
+            //         .login(["public_profile", "email"])
+            //         .then(function(success) {
+            //             alert(success);
+
+            //             console.log(success);
+
+            //             var accessToken = success.authResponse.accessToken;
+
+            //             $cordovaFacebook.api("me", ["public_profile"])
+            //                 .then(function(data) {
+            //                     $http
+            //                         .get(CONFIG.WEBSERVICE_URL + 'save_user.php?access_token=' + accessToken)
+            //                         .success(function(result){
+            //                             // console.log(accessToken);
+            //                             // console.log(result);
+            //                             store.set('authData', data);
+                                        
+            //                             // $cordovaToast
+            //                             //     .show('Olá, você entrou como ' + data.name + '.', 'long', 'center');
+
+            //                             //$ionicSideMenuDelegate.toggleLeft();
+
+            //                             defer.resolve(data);
+            //                         })
+            //                         .error(function(){
+            //                             $cordovaToast.show('Ocorreu um erro de comunicação com os nossos servidores. Por favor, tente novamente', 'long', 'bottom');
+            //                             defer.reject();
+            //                         })
+            //                         .finally(function(){
+            //                             $ionicBackdrop.release();
+            //                         });
+            //                 }, function (error) {
+            //                     console.log(error);
+            //                     $cordovaToast.show('Ocorreu um erro na comunicação com o Facebook. Por favor, tente novamente', 'long', 'bottom');
+            //                     defer.reject();
+            //                 });
+            //         }, function (error) {
+            //             alert('Dentro do erro da tentativa de pegar o authtoken');
+            //             $cordovaToast.show('Ocorreu um erro na comunicação com o Facebook. Por favor, tente novamente', 'long', 'bottom');
+            //             defer.reject();
+            //             $ionicBackdrop.release();
+            //         });
+            // });
 
             return defer.promise;
         },
@@ -695,7 +831,8 @@ angular.module('starter.services', [])
     $cordovaInAppBrowser,
     $ionicPlatform,
     $rootScope,
-    $state
+    $state,
+    $ionicSideMenuDelegate
 ) {
     return {
         goExternal: function (url) {
@@ -732,11 +869,15 @@ angular.module('starter.services', [])
             
             return false;
         },
-        goRoot: function(url){
+        goRoot: function(url, params){
+            params = (typeof params == 'undefined') ? {} : params;
             $ionicHistory.nextViewOptions({
                 historyRoot: true
             });
-            $state.go(url);
+            if ($ionicSideMenuDelegate.isOpenLeft()) {
+                $ionicSideMenuDelegate.toggleLeft();    
+            }
+            $state.go(url, params);
         }
     };
 });

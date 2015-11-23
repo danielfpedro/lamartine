@@ -307,37 +307,45 @@ angular.module('starter.controllers', [])
 })
 .controller('VideosController', function(
     $scope,
+    $rootScope,
+    $timeout,
+    $ionicScrollDelegate,
     videos,
+    Notification,
     CustomState,
     Sharing,
+    store,
     Videos
 ) {
-
     var youtubeBaseUrl = 'https://www.youtube.com/watch?v=';
     var youtubeBaseUrlShort = 'https://youtu.be/';
 
     $scope.videos = videos;
     
     $scope.$on( "$ionicView.beforeEnter", function(scopes, states) {
-        
-        if (videos.length < 1) {
+        if (videos.length < 1 || $rootScope.badges.videos > 0) {
+            console.log('caiu no if para refresh');
             $scope.loading = true;
-            $scope.getRefreshed();
+            $scope.getRefreshed();    
         } else {
             $scope.moreDataCanBeLoaded = true;        
         }
-
     });
-
+    $scope.refreshByButton = function() {
+        $scope.loading = true;
+        $scope.getRefreshed();
+    };
     $scope.doRefresh = function() {
         $scope.getRefreshed();
     };
-
     $scope.getRefreshed = function(){
+        $ionicScrollDelegate.scrollTop();
         $scope.moreDataCanBeLoaded = false;
         Videos
             .all(true)
             .then(function(data){
+                Notification.resetBadge('videos');
+                $rootScope.btnsRefresh.videos = false;
                 $scope.videos = data;
             })
             .finally(function(){
