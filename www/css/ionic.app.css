@@ -9110,6 +9110,7 @@ $button-card-footer-padding: 0;
 $button-card-footer-border: 0;*/
 /*Button Header*/
 /*BTN refresh content*/
+/*ALert no network*/
 body {
   font-family: "Garamond" !important; }
 
@@ -9313,6 +9314,14 @@ h2 {
   border-radius: 200px;
   -webkit-border-radius: 200px;
   font-weight: regular; }
+
+/*Alert no network*/
+.alert-no-network {
+  background-color: #84703F;
+  text-align: center;
+  color: #FFF;
+  font-family: "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
+  padding: 10px 0; }
 
 .bar-lamartine {
   background-color: #84703F !important; }
