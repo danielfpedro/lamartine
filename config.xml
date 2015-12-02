@@ -9,6 +9,8 @@
         </author>
   <content src="index.html"/>
   <access origin="*"/>
+      <variable name="APP_ID" value="907467622673701"/>
+    <variable name="APP_NAME" value="lamartine"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
