@@ -94,6 +94,7 @@ h2 {
 	background-size: $card-img-size;
 	background-position: $card-img-position;
 	margin: $card-img-margin;
+	background-color: $card-img-bg-color;
 }
 .lamartine-card-titulo {
 	color: $card-titulo-font-color;
@@ -214,4 +215,35 @@ h2 {
 	color: #FFF;
 	font-family: $font-family-sans-serif;
 	padding: 10px 0;
+}
+/*Sobre*/
+.box-column {
+	@include flexbox();
+	@include flex-direction(column);
+	height: 100%;
+}
+.flex-row-1{
+	@include flex(1);
+}
+.flex-row-2{
+	@include flex(2);
+}
+.sobre-content{
+	color: rgba(#000, .8)!important;
+	font-family: $font-family-sans-serif;
+	@include flexbox();
+	@include flex-direction(column);
+	@include align-items(center);
+	@include justify-content(center);
+	/*background-color: green;*/
+}
+.btn-menu-info{
+	margin-left: 20px;
+	color: $menu-font-color;
+}
+.btn-menu-info:before{
+	font-size: 24px;
+}
+.btn-sobre {
+	color: rgba(#000, .8)!important;
 }

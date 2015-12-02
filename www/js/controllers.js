@@ -41,7 +41,8 @@ angular.module('starter.controllers', [])
     Notification,
     CustomState,
     Login,
-    store
+    store,
+    dadosLoja
 ) {
     // With the new view caching in Ionic, Controllers are only called
     // when they are recreated or on app start, instead of every page change.
@@ -49,7 +50,6 @@ angular.module('starter.controllers', [])
     // listen for the $ionicView.enter event:
     //$scope.$on('$ionicView.enter', function(e) {
     //});
-    
 
     $scope.$on('$ionicView.beforeEnter', function(e) {
         Login.authData().then(function(data){
@@ -62,7 +62,9 @@ angular.module('starter.controllers', [])
          */
         Notification.register();
     });
-
+    $scope.goLoja = function() {
+        CustomState.goExternal(dadosLoja.url);
+    };
     /**
      * Deve ser rootScope pois é acessdo em .run no app.js
      */
@@ -107,22 +109,30 @@ angular.module('starter.controllers', [])
 
 .controller('TestesController', function(
     $scope,
-    $cordovaSocialSharing
+    $rootScope,
+    Testes,
+    posts
 ) {
-    $scope.share = function(){
-        document.addEventListener("deviceready", function () {
-            $cordovaSocialSharing
-                .share('Aqui a mensagem e tal', 'Assunto aqui', null, 'http://google.com')
-                .then(function(result) {
-                // Success!
-                }, function(err) {
-                    alert('deu ruim');
-                });
-        }, false);
-    };
+    $scope.posts = posts;
 
-    $scope.goExternal = function(url){
-        window.open(url, '_blank', 'location=no');
+    $scope.$on( "$ionicView.beforeEnter", function(scopes, states) {
+        console.log('Valor do posts.length');
+        console.log($scope.posts.length);
+        if ($scope.posts.length === 0) {
+            console.log('aqui');
+            Testes.getPostsWithLoading();
+        }
+    });
+
+    $scope.add = function(){
+        Testes.add();   
+    };
+    $scope.doRefresh = function(){
+        Testes
+            .refresh()
+            .finally(function(){
+                $scope.$broadcast('scroll.refreshComplete');
+            });
     };
 })
 .controller('ContatoController', function(
@@ -144,12 +154,12 @@ angular.module('starter.controllers', [])
     };
 })
 .controller('AgendaController', function(
-    $scope,
-    $rootScope,
-    $timeout,
     $ionicScrollDelegate,
-    Notification,
+    $rootScope,
+    $scope,
+    $timeout,
     Agenda,
+    Notification,
     Sharing,
     eventos,
     store
@@ -170,6 +180,7 @@ angular.module('starter.controllers', [])
 
     $scope.refreshByButton = function() {
         $scope.loading = true;
+        $ionicScrollDelegate.scrollTop();
         $scope.getRefreshed();
     };
 
@@ -194,7 +205,6 @@ angular.module('starter.controllers', [])
             });
     };
     $scope.getRefreshed = function(){
-        $ionicScrollDelegate.scrollTop();
         Notification.hideBtnsRefresh('blog');
         $scope.moreDataCanBeLoaded = false;
         $timeout(function(){
@@ -202,7 +212,7 @@ angular.module('starter.controllers', [])
                 .all(true)
                 .then(function(data){
                     Notification.resetBadge('agenda');
-                    $scope.agenda = data;
+                    $scope.eventos = data;
                 })
                 .finally(function(){
                     $scope.moreDataCanBeLoaded = true;
@@ -212,7 +222,6 @@ angular.module('starter.controllers', [])
         }, 2000);
     };
     $scope.doRefresh = function() {
-        $scope.moreDataCanBeLoaded = false;
         $scope.getRefreshed();
     };
     $scope.share = function(evento){
@@ -220,15 +229,15 @@ angular.module('starter.controllers', [])
     };
 })
 .controller('AudiosController', function(
+    $ionicScrollDelegate,
+    $rootScope,
     $scope,
+    $timeout,
+    Audios,
+    audios,
     CustomState,
     Notification,
-    $ionicScrollDelegate,
-    $timeout,
-    $rootScope,
-    Sharing,
-    audios,
-    Audios
+    Sharing
 ) {
     $scope.audios = audios;
 
@@ -248,12 +257,12 @@ angular.module('starter.controllers', [])
 
     $scope.refreshByButton = function() {
         $scope.loading = true;
+        $ionicScrollDelegate.scrollTop();
         $scope.getRefreshed();
     };
 
     $scope.getRefreshed = function(){
         Notification.hideBtnsRefresh('audios');
-        $ionicScrollDelegate.scrollTop();
         $scope.moreDataCanBeLoaded = false;
         $timeout(function(){
             Audios
@@ -335,16 +344,16 @@ angular.module('starter.controllers', [])
     };
 })
 .controller('VideosController', function(
-    $scope,
-    $rootScope,
-    $timeout,
     $ionicScrollDelegate,
-    videos,
-    Notification,
+    $rootScope,
+    $scope,
+    $timeout,
     CustomState,
+    Notification,
     Sharing,
     store,
-    Videos
+    Videos,
+    videos
 ) {
     var youtubeBaseUrl = 'https://www.youtube.com/watch?v=';
     var youtubeBaseUrlShort = 'https://youtu.be/';
@@ -361,13 +370,13 @@ angular.module('starter.controllers', [])
     });
     $scope.refreshByButton = function() {
         $scope.loading = true;
+        $ionicScrollDelegate.scrollTop();
         $scope.getRefreshed();
     };
     $scope.doRefresh = function() {
         $scope.getRefreshed();
     };
     $scope.getRefreshed = function(){
-        $ionicScrollDelegate.scrollTop();
         Notification.hideBtnsRefresh('blog');
         $scope.moreDataCanBeLoaded = false;
         Videos
@@ -416,21 +425,26 @@ angular.module('starter.controllers', [])
 
 })
 .controller('BlogController', function(
-    $scope,
+    $ionicScrollDelegate,
     $rootScope,
-    posts,
+    $scope,
+    $timeout,
+    Blog,
     CONFIG,
     CustomState,
     Notification,
-    $ionicScrollDelegate,
-    $timeout,
-    Sharing,
-    Blog
+    posts,
+    Sharing
 ) {
-
     $scope.posts = posts;
 
+    $scope.$on( "$ionicView.afterEnter", function(scopes, states) {
+        console.log('After enter');
+    });
     $scope.$on( "$ionicView.beforeEnter", function(scopes, states) {
+        console.log('Entrando no beforeFilter');
+        console.log('Valor de rootScope.badges');
+        console.log($rootScope.badges);
         $scope.imagemBaseUrl = CONFIG.BLOG_IMAGEM_BASEURL;
 
         if (posts.length < 1 || $rootScope.badges.blog > 0) {
@@ -445,12 +459,12 @@ angular.module('starter.controllers', [])
     };
 
     $scope.refreshByButton = function() {
+        $ionicScrollDelegate.scrollTop();
         $scope.loading = true;
         $scope.all();
     };
 
     $scope.all = function(){
-        $ionicScrollDelegate.scrollTop();
         Notification.hideBtnsRefresh('blog');
         $timeout(function(){
             Blog
@@ -500,6 +514,16 @@ angular.module('starter.controllers', [])
     biografia
 ) {
     $scope.biografia = biografia;
+})
+.controller('SobreController', function(
+    $scope,
+    sobre,
+    CustomState
+) {
+    $scope.sobre = sobre;
+    $scope.goFacebook = function(url){
+        CustomState.goExternal(url);
+    };
 })
 .controller('SairController', function(
     $scope,

@@ -1,8 +1,91 @@
 angular.module('starter.services', [])
 
+.factory('Testes', function(
+    $q,
+    $http,
+    CONFIG,
+    $timeout,
+    $rootScope,
+    store
+){
+    return {
+        data: {
+            modelName: 'teste',
+            posts: []
+        },
+        getLoading: function(){
+            return this.loading;
+        },
+        getPostsWithLoading: function() {
+            var defer = $q.defer();
+            var _this = this;
+
+            $rootScope.loading.posts = true;
+
+            $timeout(function(){
+                _this
+                    .getPostsFromServer()
+                    .then(function(){
+                        defer.resolve();
+                    }, function(){
+                        defer.reject();
+                    })
+                    .finally(function(){
+                        $rootScope.loading.posts = false;
+                    });
+                }, 3000);
+            return defer.promise;            
+        },
+        refresh: function() {
+            var defer = $q.defer();
+
+            this
+                .getPostsFromServer()
+                .then(function(){
+                    defer.resolve();
+                }, function(){
+                    defer.reject();
+                });
+            return defer.promise;            
+        },
+        getPostsFromCache: function() {
+            var defer = $q.defer();
+            this.data.posts = (this.data.posts.length > 0) ? this.data.posts : store.get('posts') || [];
+            defer.resolve(this.data.posts);
+            return defer.promise;
+        },
+        getPostsFromServer: function(){
+            var defer = $q.defer();
+            var _this = this;
+            // this.data.posts.push({titulo: 'tey'});
+            // defer.resolve();
+            // return defer.promise; 
+            $http
+                .get(CONFIG.WEBSERVICE_URL + 'posts.php')
+                .then(function(data){
+                    _this.add(_this.data.posts, data.data.data);
+                    
+                    //store.set('posts', _this.data.posts);
+                    defer.resolve();
+                }, function(){
+                    defer.reject();
+                });
+            return defer.promise; 
+        },
+        add: function(data, newData) {
+            angular.forEach(newData, function(value){
+                data.push(value);
+            });
+        }
+    };
+})
+
 .factory('DadosGerais', function($q){
     return {
         dados: {
+            loja: {
+                url: 'http://www.lamartineposella.com.br/loja/'
+            },
             biografia: [
                 {
                     titulo: null,
@@ -122,11 +205,29 @@ angular.module('starter.services', [])
                         'image': 'wikipedia_icon.png'
                     },
                 ]
+            },
+            sobre:
+            {
+                interagirFacebook: {
+                    label: '/interagir',
+                    url: 'https://www.facebook.com/interagir'
+                },
+                interagirSite: {
+                    label: 'www.agenciainteragir.com.br',
+                    url: 'http://www.agenciainteragir.com.br'
+                },
+                interagirTelefone: '+55 (24) 9-9286-5544',
+                interagirLocalizacao: 'Volta Redonda / RJ'
             }
         },
         get: function(data){
             var defer = $q.defer();
             defer.resolve(this.dados[data]);
+            return defer.promise;
+        },
+        getSobre: function(){
+            var defer = $q.defer();
+            defer.resolve(this.dados.sobre);
             return defer.promise;
         },
         getContato: function(){
@@ -137,6 +238,11 @@ angular.module('starter.services', [])
         getBiografia: function(){
             var defer = $q.defer();
             defer.resolve(this.dados.biografia);
+            return defer.promise;
+        },
+        getLoja: function(){
+            var defer = $q.defer();
+            defer.resolve(this.dados.loja);
             return defer.promise;
         }
     };
@@ -285,37 +391,30 @@ angular.module('starter.services', [])
                     $timeout(function(){
                         _this.incrementBadge(additionalData.tipo);    
                     });
-                    if (additionalData.foreground) {
+                    /**
+                     * Se for notificacao_avulsa faz a mesma coisa em 
+                     * foreground ou background
+                     */
+                    if (additionalData.tipo == 'notificacao_avulsa') {
                         $cordovaDialogs.beep(1);
-
-                        if (_this.getStateByTipo(additionalData.tipo) == $ionicHistory.currentStateName()) {
-                            $timeout(function(){
-                                $rootScope.btnsRefresh[additionalData.tipo] = true;
-                            }, 1000);
-                            // $cordovaToast.show('Conteúdo novo disponível, atualize para visualizar.', 'long', 'bottom');
-                        } else {
-                            console.log('Faz beep');
-                            $cordovaToast.show('Conteúdo novo adicionado em ' + additionalData.tipo + '.', 'short', 'bottom');
-                            // $cordovaLocalNotification.schedule({
-                            //         id: _this.getLocalNotificationIdByTipo(additionalData.tipo),
-                            //         title: data.title,
-                            //         text: data.message,
-                            //         icon: "file://img/icon_notification.png",
-                            //         data: additionalData
-                            //     }).then(function (result) {
-                            //     });
-                            //     $rootScope.$on('$cordovaLocalNotification:click',
-                            //         function (event, notification, state) {
-                            //             // alert(notification);
-                            //             var data = JSON.parse(notification.data);
-                            //             store.set(data.tipo + 'Refresh', true);
-                            //             CustomState.goRoot(_this.getStateByTipo(data.tipo));
-                            //         });
-                        }
-                        console.log($ionicHistory.currentStateName());
-                        //$cordovaToast();
+                        $cordovaDialogs.alert(data.message, data.title, 'OK');
                     } else {
-                        CustomState.goRoot(_this.getStateByTipo(additionalData.tipo));
+                        if (additionalData.foreground) {
+                            $cordovaDialogs.beep(1);
+
+                            if (_this.getStateByTipo(additionalData.tipo) == $ionicHistory.currentStateName()) {
+                                $timeout(function(){
+                                    $rootScope.btnsRefresh[additionalData.tipo] = true;
+                                }, 1000);
+                                // $cordovaToast.show('Conteúdo novo disponível, atualize para visualizar.', 'long', 'bottom');
+                            } else {
+                                $cordovaToast.show('Conteúdo novo adicionado em ' + additionalData.tipo + '.', 'short', 'bottom');
+                            }
+                            console.log($ionicHistory.currentStateName());
+                            //$cordovaToast();
+                        } else {
+                            CustomState.goRoot(_this.getStateByTipo(additionalData.tipo));
+                        }
                     }
                     // data.message,
                     // data.title,
@@ -827,7 +926,7 @@ angular.module('starter.services', [])
                 var options = {
                     location: 'yes',
                     clearcache: 'yes',
-                    toolbar: 'yes'
+                    toolbar: 'no'
                 };
                 $ionicLoading.show({template: 'Abrindo, aguarde...'});
                 $cordovaInAppBrowser.open(url, '_blank', options)

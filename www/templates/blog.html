@@ -25,9 +25,8 @@
                 <div
                     ng-click="goBlog('{{post.link}}')"
                     class="lamartine-card-img"
-                    preload-bg-image="{{imagemBaseUrl}}{{post.imagem}}"
-                    default-image="img/fallback_image.jpg"
-                    fallback-image="img/fallback_image.jpg">
+                    alt="{{post.titulo}}"
+                    style="background-image: url({{imagemBaseUrl}}{{post.imagem}})">
                 </div>
                 <div
                     ng-click="goBlog('{{post.link}}')"

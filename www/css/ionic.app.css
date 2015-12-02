@@ -9196,7 +9196,8 @@ h2 {
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center center;
-  margin: 0; }
+  margin: 0;
+  background-color: #EEE; }
 
 .lamartine-card-titulo {
   color: #84703F;
@@ -9322,6 +9323,73 @@ h2 {
   color: #FFF;
   font-family: "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
   padding: 10px 0; }
+
+/*Sobre*/
+.box-column {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%; }
+
+.flex-row-1 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
+  -moz-flex: 1;
+  -ms-flex: 1;
+  flex: 1; }
+
+.flex-row-2 {
+  -webkit-box-flex: 2;
+  -webkit-flex: 2;
+  -moz-box-flex: 2;
+  -moz-flex: 2;
+  -ms-flex: 2;
+  flex: 2; }
+
+.sobre-content {
+  color: rgba(0, 0, 0, 0.8) !important;
+  font-family: "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  /*background-color: green;*/ }
+
+.btn-menu-info {
+  margin-left: 20px;
+  color: #1d1d26; }
+
+.btn-menu-info:before {
+  font-size: 24px; }
+
+.btn-sobre {
+  color: rgba(0, 0, 0, 0.8) !important; }
 
 .bar-lamartine {
   background-color: #84703F !important; }

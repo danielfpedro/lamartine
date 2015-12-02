@@ -20,8 +20,8 @@ angular.module('starter', [
 .constant('CONFIG', {
     // WEBSERVICE_URL: (prod) ? 'http://www.lamartineposella.com.br/api/' : 'http://192.168.254.200:8081/lamartine/api/',
     WEBSERVICE_URL: (prod) ? 'http://www.lamartineposella.com.br/api/' : 'http://www.lamartineposella.com.br/api/',
-    DEFAULT_VIEW_URL: 'app/videos',
-    DEFAULT_VIEW: 'app.videos',
+    DEFAULT_VIEW_URL: 'app/biografia',
+    DEFAULT_VIEW: 'app.biografia',
     BLOG_URL: 'http://www.lamartineposella.com.br/blog/',
     BLOG_IMAGEM_BASEURL: 'http://www.lamartineposella.com.br/site/images/blog/',
     HTTP_TIMEOUT: 15000
@@ -154,7 +154,12 @@ angular.module('starter', [
             url: '/app',
             abstract: true,
             templateUrl: 'templates/menu.html',
-            controller: 'AppCtrl'
+            controller: 'AppCtrl',
+            resolve: {
+                dadosLoja: function(DadosGerais){
+                    return DadosGerais.getLoja();
+                }
+            }
         })
 
         .state('app.testes', {
@@ -163,6 +168,11 @@ angular.module('starter', [
                 'menuContent': {
                     templateUrl: 'templates/testes.html',
                     controller: 'TestesController'
+                }
+            },
+            resolve: {
+                posts: function(Testes){
+                    return Testes.getPostsFromCache();
                 }
             }
         })
@@ -236,6 +246,20 @@ angular.module('starter', [
             resolve: {
                 dadosGerais: function(DadosGerais){
                     return DadosGerais.getContato();
+                }
+            }
+        })
+        .state('app.sobre', {
+            url: '/sobre',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/sobre.html',
+                    controller: 'SobreController'
+                }
+            },
+            resolve: {
+                sobre: function(DadosGerais) {
+                    return DadosGerais.getSobre();
                 }
             }
         })

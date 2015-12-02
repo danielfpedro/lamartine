@@ -1,17 +1,20 @@
 <ion-view view-title="Testes">
 	<ion-content>
-		<button
-			type="button"
-			class="button button-block button-assertive"
-			ng-click="share()">
-			Compartilhar
-		</button>
-		<button
-			type="button"
-			class="button button-block button-assertive"
-			ng-click="goExternal('https://www.facebook.com/AnittaOficial/')">
-			Facebook Anitta
-		</button>
-		<a href="https://twitter.com/annitaoficial" target="_blank">Twitter Anitta</a>
+        <ion-refresher
+            ng-if="!loading.posts"
+            pulling-text="Puxe para atualizar..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <div class="text-center padding" ng-if="loading.posts">
+            <ion-spinner></ion-spinner>
+        </div>
+        
+		<ion-list>
+			<button class="button button-block button-small" ng-click="add()">Adicionar</button>
+			<ion-item ng-repeat="post in posts track by $index">
+				{{post.titulo}}
+			</ion-item>
+		</ion-list>
 	</ion-content>
 </ion-view>
