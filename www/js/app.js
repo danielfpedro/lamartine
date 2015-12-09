@@ -91,6 +91,8 @@ angular.module('starter', [
 
         if (prod) {
 
+             
+
             $rootScope.isOnline = $cordovaNetwork.isOnline();
             $rootScope.$on('$cordovaNetwork:online', function(event, networkState){
                 $rootScope.isOnline = true;
@@ -108,7 +110,8 @@ angular.module('starter', [
         }
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
-            StatusBar.styleDefault();
+            //StatusBar.styleDefault();
+            $cordovaStatusbar.style(3);
         }
     });
 })

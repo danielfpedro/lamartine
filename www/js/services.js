@@ -341,48 +341,47 @@ angular.module('starter.services', [])
                     }
                 });
                 push.on('registration', function(data) {
-                    console.log('Registrado');
-                    console.log(data.registrationId);
+                    // console.log('Registrado');
+                    // console.log(data.registrationId);
                     defer.resolve(data.registrationId);
                 });
                 push.on('notification', function(data) {
-                    console.log(data);
-                    var additionalData = data.additionalData;
+                    var customData = data.additionalData;
                     if (platform.toLowerCase() == 'android') {
-                        additionalData.concat(data.additionalData.custom);
+                        customData = data.additionalData.custom;
                     }
-                    console.log('addidional data final');
-                    console.log(additionalData);
+                    console.log('Data da notificação');
+                    console.log(data);
                     /**
                      * Incrementa badge
                      * OBS.: Da uns bugs se nao enrolar no timeout
                      */
                     $timeout(function(){
-                        _this.incrementBadge(additionalData.tipo);    
+                        _this.incrementBadge(customData.tipo);    
                     });
                     /**
                      * Se for notificacao_avulsa faz a mesma coisa em 
                      * foreground ou background
                      */
-                    if (additionalData.tipo == 'notificacao_avulsa') {
+                    if (customData.tipo == 'notificacao_avulsa') {
                         $cordovaDialogs.beep(1);
                         $cordovaDialogs.alert(data.message, data.title, 'OK');
                     } else {
-                        if (additionalData.foreground) {
+                        if (data.additionalData.foreground) {
                             $cordovaDialogs.beep(1);
 
-                            if (_this.getStateByTipo(additionalData.tipo) == $ionicHistory.currentStateName()) {
+                            if (_this.getStateByTipo(customData.tipo) == $ionicHistory.currentStateName()) {
                                 $timeout(function(){
-                                    $rootScope.btnsRefresh[additionalData.tipo] = true;
+                                    $rootScope.btnsRefresh[customData.tipo] = true;
                                 }, 1000);
                                 // $cordovaToast.show('Conteúdo novo disponível, atualize para visualizar.', 'long', 'bottom');
                             } else {
-                                $cordovaToast.show('Conteúdo novo adicionado em ' + additionalData.tipo + '.', 'short', 'bottom');
+                                $cordovaToast.show('Conteúdo novo adicionado em ' + customData.tipo + '.', 'short', 'bottom');
                             }
                             console.log($ionicHistory.currentStateName());
                             //$cordovaToast();
                         } else {
-                            CustomState.goRoot(_this.getStateByTipo(additionalData.tipo));
+                            CustomState.goRoot(_this.getStateByTipo(customData.tipo));
                         }
                     }
                     // data.message,

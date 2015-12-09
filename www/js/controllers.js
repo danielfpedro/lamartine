@@ -205,7 +205,7 @@ angular.module('starter.controllers', [])
             });
     };
     $scope.getRefreshed = function(){
-        Notification.hideBtnsRefresh('blog');
+        Notification.hideBtnsRefresh('agenda');
         $scope.moreDataCanBeLoaded = false;
         $timeout(function(){
             Agenda
@@ -484,7 +484,7 @@ angular.module('starter.controllers', [])
         CustomState.goExternal(url);
     };
     $scope.goAllPosts = function(){
-        window.open(CONFIG.BLOG_URL, '_system', 'location=yes');
+        CustomState.goExternal(CONFIG.BLOG_URL);
     };
     $scope.share = function(post){
         Sharing.share(null, 'Leia "'+post.titulo+'" no blog de Lamartine Posella', null, post.link);
@@ -521,7 +521,7 @@ angular.module('starter.controllers', [])
     CustomState
 ) {
     $scope.sobre = sobre;
-    $scope.goFacebook = function(url){
+    $scope.goExternal = function(url){
         CustomState.goExternal(url);
     };
 })
