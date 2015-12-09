@@ -1,0 +1,64 @@
+<ion-view view-title="Vídeos">
+    <div
+        ng-if="btnsRefresh.videos"
+        class="btn-refresh-content"
+        ng-click="refreshByButton()">
+            Atualizar conteúdo
+    </div>
+
+    <ion-content has-bouncing="false" class="content-bg">
+        <ion-refresher
+            ng-if="!loading"
+            pulling-text="Puxe para atualizar..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <my-network-alert></my-network-alert>
+
+        <div class="text-center padding" ng-if="loading">
+            <ion-spinner></ion-spinner>
+        </div>
+
+        <ion-list>
+
+            <div class="lamartine-card" ng-repeat="video in videos track by $index">
+                <div
+                    class="lamartine-card-img"
+                    ng-click="goYoutube('{{video.youtubeId}}')"
+                    preload-bg-image="http://img.youtube.com/vi/{{video.youtubeId}}/mqdefault.jpg"
+                    default-image="img/fallback_image.jpg"
+                    fallback-image="img/fallback_image.jpg">
+                </div>
+                <div
+                    ng-click="goYoutube('{{video.youtubeId}}')"
+                    class="lamartine-card-titulo">
+                    {{video.titulo}}
+                </div>
+                <div
+                    ng-click="goYoutube('{{video.youtubeId}}')"
+                    class="lamartine-card-chamada">
+                    {{video.chamada}}
+                </div>
+                <div class="lamartine-card-footer text-right">
+                    <button 
+                        type="button"
+                        class="button button-icon-left button-clear button-small button-card-footer"
+                        ng-click="share(video)">
+                        <span class="icon ion-android-share"></span> Compartilhar
+                    </button>
+                </div>
+            </div>
+        </ion-list>
+
+        <div ng-if="videos.length < 1" class="no-content">
+            Nenhum vídeo para mostrar
+        </div>
+
+        <ion-infinite-scroll
+            ng-if="moreDataCanBeLoaded"
+            on-infinite="loadMore()"
+            distance="10%">
+        </ion-infinite-scroll>
+
+    </ion-content>
+</ion-view>

@@ -9316,6 +9316,9 @@ h2 {
   -webkit-border-radius: 200px;
   font-weight: regular; }
 
+.platform-ios .btn-refresh-content {
+  margin-top: 65px; }
+
 /*Alert no network*/
 .alert-no-network {
   background-color: #84703F;

@@ -207,6 +207,9 @@ h2 {
 	-webkit-border-radius: $btn-refresh-border-radius;
 	font-weight: $btn-refresh-font-weight;
 }
+.platform-ios .btn-refresh-content{
+	margin-top: $btn-refresh-margin-top + 15;
+}
 
 /*Alert no network*/
 .alert-no-network{

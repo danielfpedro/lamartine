@@ -18,8 +18,7 @@ angular.module('starter', [
 ])
 
 .constant('CONFIG', {
-    // WEBSERVICE_URL: (prod) ? 'http://www.lamartineposella.com.br/api/' : 'http://192.168.254.200:8081/lamartine/api/',
-    WEBSERVICE_URL: (prod) ? 'http://www.lamartineposella.com.br/api/' : 'http://www.lamartineposella.com.br/api/',
+    WEBSERVICE_URL: (prod) ? 'http://www.lamartineposella.com.br/api/' : 'http://192.168.254.200:8081/lamartine/api/',
     DEFAULT_VIEW_URL: 'app/biografia',
     DEFAULT_VIEW: 'app.biografia',
     BLOG_URL: 'http://www.lamartineposella.com.br/blog/',
@@ -60,11 +59,11 @@ angular.module('starter', [
         if (error === "AUTH_REQUIRED") {
             event.preventDefault();
             if (prod) {
-                $cordovaDialogs.confirm('Você deve entrar para acessar esta área.', 'Área Restrita', ['Entrar com Facebook', 'Agora não'])
+                $cordovaDialogs.confirm('Você deve entrar para acessar esta área.', 'Área Restrita', ['Agora não', 'Entrar com Facebook'])
                     .then(function(buttonIndex) {
                         // no button = 0, 'OK' = 1, 'Cancel' = 2
                         var btnIndex = buttonIndex;
-                        if (btnIndex == 1) {
+                        if (btnIndex == 2) {
                             $rootScope.doLoginFacebook(toState.name);
                         }
                     });

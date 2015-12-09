@@ -295,31 +295,15 @@ angular.module('starter.services', [])
 
             var defer = $q.defer();
             var _this = this;
+            ionic.Platform.ready(function(){
+                var uuid = (prod) ? $cordovaDevice.getUUID() : '123';
+                var platform = (prod) ? $cordovaDevice.getPlatform() : 'android';
 
-            if (ionic.Platform.isIOS() && prod) {
                 _this
-                    .registerIos()
-                    .then(function(){
-                        defer.resolve();
-                    }, function(){
-                        defer.reject();
-                    });
-            } else {
-                _this
-                    .registerAndroid()
+                    .getRegIdAndWatchNotification(platform)
                     .then(function(regId){
                         var registeredBefore = store.get('regIdRegistered') || false;
-                        console.log('Valor do registered Before');
-                        console.log(registeredBefore);
                         if (!registeredBefore) {
-
-                            var uuid = (prod) ? $cordovaDevice.getUUID() : '123';
-                            var platform = (prod) ? $cordovaDevice.getPlatform() : 'android';
-
-                            console.log(regId);
-                            console.log(uuid);
-
-                            console.log('Salvando');
                             _this
                                 .saveRegId(uuid, regId, platform)
                                 .then(function(result){
@@ -332,32 +316,12 @@ angular.module('starter.services', [])
                     }, function(){
                         defer.reject();
                     });
-            }
-            return defer.promise;
-        },
-        saveRegId: function(uuid, regId, platform){
 
-            var defer = $q.defer();
-            console.log('Indo no servidor salvar o regid');
-            $http
-                .post(CONFIG.WEBSERVICE_URL + 'salva_regid.php', {uuid: uuid, regid: regId, platform: platform})
-                .then(function(result){
-                    console.log('Foi no servidor e voltou jóia');
-                    /**
-                     * Garanto que realmente salvou
-                     */
-                    if (result.data.data == 'lamartine') {
-                        store.set('regIdRegistered', true);   
-                    }
-                    defer.resolve(result);
-                }, function(){
-                    console.log('FOi no servidor e voltou reuim, deu erro rsrsrs');
-                    defer.reject();
-                });
+            });
 
             return defer.promise;
         },
-        registerAndroid: function(){
+        getRegIdAndWatchNotification: function(platform){
             var defer = $q.defer();
             var _this = this;
             if (!prod) {
@@ -384,6 +348,11 @@ angular.module('starter.services', [])
                 push.on('notification', function(data) {
                     console.log(data);
                     var additionalData = data.additionalData;
+                    if (platform.toLowerCase() == 'android') {
+                        additionalData.concat(data.additionalData.custom);
+                    }
+                    console.log('addidional data final');
+                    console.log(additionalData);
                     /**
                      * Incrementa badge
                      * OBS.: Da uns bugs se nao enrolar no timeout
@@ -424,11 +393,32 @@ angular.module('starter.services', [])
                     // data.additionalData
                 });
                 push.on('error', function(e) {
-                    console.log('deu erro no registro');
                     console.log(e.message);
                     defer.reject();
                 });
             });
+            return defer.promise;
+        },
+        saveRegId: function(uuid, regId, platform){
+
+            var defer = $q.defer();
+            console.log('Indo no servidor salvar o regid');
+            $http
+                .post(CONFIG.WEBSERVICE_URL + 'salva_regid.php', {uuid: uuid, regid: regId, platform: platform})
+                .then(function(result){
+                    console.log('Foi no servidor e voltou jóia');
+                    /**
+                     * Garanto que realmente salvou
+                     */
+                    if (result.data.data == 'lamartine') {
+                        store.set('regIdRegistered', true);   
+                    }
+                    defer.resolve(result);
+                }, function(){
+                    console.log('FOi no servidor e voltou reuim, deu erro rsrsrs');
+                    defer.reject();
+                });
+
             return defer.promise;
         },
         incrementBadge: function(tipo){
@@ -460,9 +450,6 @@ angular.module('starter.services', [])
         //     }
         //     return out;
         // },
-        registerIos: function(){
-
-        },
     };
 })
 
@@ -926,7 +913,8 @@ angular.module('starter.services', [])
                 var options = {
                     location: 'yes',
                     clearcache: 'yes',
-                    toolbar: 'no'
+                    toolbar: 'yes',
+                    closebuttoncaption: 'Voltar'
                 };
                 $ionicLoading.show({template: 'Abrindo, aguarde...'});
                 $cordovaInAppBrowser.open(url, '_blank', options)

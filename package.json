@@ -1,6 +1,6 @@
 {
   "name": "lamartine",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "lamartine: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
@@ -21,7 +21,22 @@
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
-    "cordova-plugin-dialogs"
+    "cordova-plugin-dialogs",
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-x-socialsharing",
+    "cordova-plugin-x-toast",
+    "phonegap-plugin-push",
+    {
+      "variables": {
+        "APP_ID": "907467622673701",
+        "APP_NAME": "lamartine"
+      },
+      "locator": "cordova-plugin-facebook4",
+      "id": "cordova-plugin-facebook4"
+    },
+    "org.apache.cordova.network-information"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "ios"
+  ]
 }

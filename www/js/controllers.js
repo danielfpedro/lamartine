@@ -377,7 +377,7 @@ angular.module('starter.controllers', [])
         $scope.getRefreshed();
     };
     $scope.getRefreshed = function(){
-        Notification.hideBtnsRefresh('blog');
+        Notification.hideBtnsRefresh('videos');
         $scope.moreDataCanBeLoaded = false;
         Videos
             .all(true)
