@@ -110,8 +110,9 @@ angular.module('starter', [
         }
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
-            //StatusBar.styleDefault();
-            $cordovaStatusbar.style(3);
+            // StatusBar.styleDefault();
+            $cordovaStatusbar.styleHex('#FFF');
+            // $cordovaStatusbar.backgroundColorByHexString('#000');
         }
     });
 })
