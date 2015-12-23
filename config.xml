@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="br.com.agenciainteragir.lamartine" version="0.10.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="br.com.agenciainteragir.lamartine" version="1.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Lamartine Posella</name>
   <description>
-                App de Lamartine Posella.
-        </description>
+        Aplicativo oficial de Lamartine Posella.
+    </description>
   <author email="contato@agenciainteragir.com.br" href="http://www.agenciainteragir.com.br/">
-            Agência Interagir
-        </author>
+        Agência Interagir
+    </author>
   <content src="index.html"/>
   <access origin="*"/>
   <allow-intent href="tel:*"/>
@@ -15,10 +15,6 @@
   <preference name="DisallowOverscroll" value="true"/>
   <preference name="android-minSdkVersion" value="16"/>
   <preference name="BackupWebStorage" value="none"/>
-  <preference name="xwalkVersion" value="14+"/>
-  <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect"/>
-  <preference name="xwalkMode" value="embedded"/>
-  <preference name="xwalkMultipleApk" value="true"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
   <preference name="orientation" value="portrait"/>

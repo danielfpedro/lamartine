@@ -492,10 +492,39 @@ angular.module('starter.controllers', [])
 })
 .controller('LinhaDoTempoController', function(
     $scope,
+    $timeout,
+    LinhaDoTempo,
     ocorrencias
 ) {
-    console.log(ocorrencias);
+
     $scope.ocorrencias = ocorrencias;
+
+    $scope.$on( "$ionicView.beforeEnter", function(scopes, states) {
+
+        if (ocorrencias.length < 1) {
+            $scope.loading = true;
+            $scope.all();
+        }
+
+    });
+
+    $scope.doRefresh = function() {
+        $scope.all();
+    };
+
+    $scope.all = function(){
+        $timeout(function(){
+            LinhaDoTempo
+                .all()
+                .then(function(data){
+                    $scope.ocorrencias = data;
+                })
+                .finally(function(){
+                    $scope.loading = false;
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+        });
+    };
 })
 .controller('BiografiaController', function(
     $scope,

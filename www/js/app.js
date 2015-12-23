@@ -111,7 +111,8 @@ angular.module('starter', [
         if (window.StatusBar) {
             // org.apache.cordova.statusbar required
             // StatusBar.styleDefault();
-            $cordovaStatusbar.styleHex('#FFF');
+            $cordovaStatusbar.style(3);
+            // $cordovaStatusbar.styleHex('#FFF');
             // $cordovaStatusbar.backgroundColorByHexString('#000');
         }
     });
@@ -216,9 +217,9 @@ angular.module('starter', [
                 }
             },
             resolve: {
-                requireAuth: function(Login){
-                    return Login.requireAuth();
-                },
+                // requireAuth: function(Login){
+                //     return Login.requireAuth();
+                // },
                 audios: function(Audios){
                     return Audios.getCache();
                 }
@@ -233,9 +234,9 @@ angular.module('starter', [
                 }
             },
             resolve: {
-                requireAuth: function(Login){
-                    return Login.requireAuth();
-                },
+                // requireAuth: function(Login){
+                //     return Login.requireAuth();
+                // },
             }
         })
         .state('app.contato', {
@@ -306,8 +307,8 @@ angular.module('starter', [
                 }
             },
             resolve: {
-                ocorrencias: function(DadosGerais){
-                    return DadosGerais.get('linhaDoTempo');
+                ocorrencias : function(LinhaDoTempo){
+                    return LinhaDoTempo.getCache();
                 }
             }
         })

@@ -1,5 +1,18 @@
 <ion-view view-title="Linha do Tempo">
     <ion-content class="content-bg" has-bouncing="false">
+
+        <ion-refresher
+            ng-if="!loading"
+            pulling-text="Puxe para atualizar..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <my-network-alert></my-network-alert>
+
+        <div class="text-center padding" ng-if="loading">
+            <ion-spinner></ion-spinner>
+        </div>
+
         <ion-list>
 
             <div
@@ -10,11 +23,10 @@
                     <span class="icon ion-ios-location"></span> {{ocorrencia.ano}}
                 </div>
                 <div class="lamartine-card-chamada" style="padding-bottom: 15px;">
-                    {{ocorrencia.texto}}
+                    <span ng-bind-html="ocorrencia.texto"></span>
                 </div>
             </div>
             <br>
-
         </ion-list>
     </ion-content>
 </ion-view>

@@ -104,76 +104,72 @@ angular.module('starter.services', [])
                     texto: 'Músico, pianista, violonista. Lamartine é o quinto filho de uma concertista de piano. Assim, cresceu em uma casa onde todos tocavam o instrumento. Lamartine descobriu nessa época que tem ouvido absoluto e por isso não precisava ler as notas para tocar, bastava apenas ouvi-las para reproduzir. Isso o fez chegar ao quinto ano de piano sem que soubesse ler as notas musicais. Com a musicalidade como herança familiar, na época da faculdade tocou em bares e, depois da conversão ao evangelho, atuou como pianista e tecladista do grupo Vencedores por Cristo e gravou vários discos.'
                 }
             ],
-            linhaDoTempo: [
-                // {
-                //     ano: '',
-                //     texto: ''
-                // },
-                {
-                    ano: '1961',
-                    texto: 'Nasceu em 03 de Maio'
-                },
-                {
-                    ano: '1979',
-                    texto: 'Iniciou o curso de Engenharia Civil no Mackenzie'
-                },
-                {
-                    ano: '1981',
-                    texto: 'Converteu-se a Jesus'
-                },
-                {
-                    ano: '1987',
-                    texto: 'Formou em Teologia, Consagrado ao Ministério Pastoral'
-                },
-                {
-                    ano: '1989',
-                    texto: 'Fundou a Igreja Batista Palavra Viva'
-                },
-                {
-                    ano: '1996',
-                    texto: 'Deputado Federal por São Paulo'
-                },
-                {
-                    ano: '1998',
-                    texto: 'Reeleição do cargo de Deputado Federal, lançou o livro \'O Céu na terra \' e o CD \'Sonho Brasil\''
-                },
-                {
-                    ano: '2000',
-                    texto: 'Concorreu a Prefeitura de São Paulo e lançou o livro \'Reflexões para o Terceiro Milênio\''
-                },
-                {
-                    ano: '2002',
-                    texto: 'Foi candidato a Governardor de São Paulo e lançou o livro \'Jeová Jireh - No monte do senhor se proverá\''
-                },
-                {
-                    ano: '2002',
-                    texto: 'Lançou o livro \'Segredos da Alma\' e o CD \'Nos montes do Senhor\''
-                },
-                {
-                    ano: '2003',
-                    texto: 'Lançou o livro \'Maravilha Provisão\' e \'Temer ou não temer\''
-                },
-                {
-                    ano: '2006',
-                    texto: 'Foi consagrado ao Apostolado, lançou o livro \'O que não me contaram sobre Jesus\''
-                },
-                {
-                    ano: '2010',
-                    texto: 'Lançou o CD \'Até que todo mundo ouça\''
-                },
-                {
-                    ano: '2011',
-                    texto: 'Lançou o livro \'O Arsenal de guerra do Cristão\''
-                },
-                {
-                    ano: '2014',
-                    texto: 'Lança a série de palavras \'O maravilhoso cérebro e uma mente renovada\''
-                },
-                {
-                    ano: '2015',
-                    texto: 'Atualmente Lamartine Posella é presidente da igreja Batista da Palavra Viva'
-                },
-            ],
+            // linhaDoTempo: [
+            //     {
+            //         ano: '1961',
+            //         texto: 'Nasceu em 03 de Maio'
+            //     },
+            //     {
+            //         ano: '1979',
+            //         texto: 'Iniciou o curso de Engenharia Civil no Mackenzie'
+            //     },
+            //     {
+            //         ano: '1981',
+            //         texto: 'Converteu-se a Jesus'
+            //     },
+            //     {
+            //         ano: '1987',
+            //         texto: 'Formou em Teologia, Consagrado ao Ministério Pastoral'
+            //     },
+            //     {
+            //         ano: '1989',
+            //         texto: 'Fundou a Igreja Batista Palavra Viva'
+            //     },
+            //     {
+            //         ano: '1996',
+            //         texto: 'Deputado Federal por São Paulo'
+            //     },
+            //     {
+            //         ano: '1998',
+            //         texto: 'Reeleição do cargo de Deputado Federal, lançou o livro \'O Céu na terra \' e o CD \'Sonho Brasil\''
+            //     },
+            //     {
+            //         ano: '2000',
+            //         texto: 'Concorreu a Prefeitura de São Paulo e lançou o livro \'Reflexões para o Terceiro Milênio\''
+            //     },
+            //     {
+            //         ano: '2002',
+            //         texto: 'Foi candidato a Governardor de São Paulo e lançou o livro \'Jeová Jireh - No monte do senhor se proverá\''
+            //     },
+            //     {
+            //         ano: '2002',
+            //         texto: 'Lançou o livro \'Segredos da Alma\' e o CD \'Nos montes do Senhor\''
+            //     },
+            //     {
+            //         ano: '2003',
+            //         texto: 'Lançou o livro \'Maravilha Provisão\' e \'Temer ou não temer\''
+            //     },
+            //     {
+            //         ano: '2006',
+            //         texto: 'Foi consagrado ao Apostolado, lançou o livro \'O que não me contaram sobre Jesus\''
+            //     },
+            //     {
+            //         ano: '2010',
+            //         texto: 'Lançou o CD \'Até que todo mundo ouça\''
+            //     },
+            //     {
+            //         ano: '2011',
+            //         texto: 'Lançou o livro \'O Arsenal de guerra do Cristão\''
+            //     },
+            //     {
+            //         ano: '2014',
+            //         texto: 'Lança a série de palavras \'O maravilhoso cérebro e uma mente renovada\''
+            //     },
+            //     {
+            //         ano: '2015',
+            //         texto: 'Atualmente Lamartine Posella é presidente da igreja Batista da Palavra Viva'
+            //     },
+            // ],
             contato: {
                 'telefone': '+55 11 3641-3322',
                 'email': 'contato@lamartineposella.com.br',
@@ -561,55 +557,6 @@ angular.module('starter.services', [])
                 console.error(error);
                 defer.reject();
             });
-
-            // alert('Antes do Ready');
-            // $ionicPlatform.ready(function() {
-            //     alert('Dentro do Ready');
-            //     $cordovaFacebook
-            //         .login(["public_profile", "email"])
-            //         .then(function(success) {
-            //             alert(success);
-
-            //             console.log(success);
-
-            //             var accessToken = success.authResponse.accessToken;
-
-            //             $cordovaFacebook.api("me", ["public_profile"])
-            //                 .then(function(data) {
-            //                     $http
-            //                         .get(CONFIG.WEBSERVICE_URL + 'save_user.php?access_token=' + accessToken)
-            //                         .success(function(result){
-            //                             // console.log(accessToken);
-            //                             // console.log(result);
-            //                             store.set('authData', data);
-                                        
-            //                             // $cordovaToast
-            //                             //     .show('Olá, você entrou como ' + data.name + '.', 'long', 'center');
-
-            //                             //$ionicSideMenuDelegate.toggleLeft();
-
-            //                             defer.resolve(data);
-            //                         })
-            //                         .error(function(){
-            //                             $cordovaToast.show('Ocorreu um erro de comunicação com os nossos servidores. Por favor, tente novamente', 'long', 'bottom');
-            //                             defer.reject();
-            //                         })
-            //                         .finally(function(){
-            //                             $ionicBackdrop.release();
-            //                         });
-            //                 }, function (error) {
-            //                     console.log(error);
-            //                     $cordovaToast.show('Ocorreu um erro na comunicação com o Facebook. Por favor, tente novamente', 'long', 'bottom');
-            //                     defer.reject();
-            //                 });
-            //         }, function (error) {
-            //             alert('Dentro do erro da tentativa de pegar o authtoken');
-            //             $cordovaToast.show('Ocorreu um erro na comunicação com o Facebook. Por favor, tente novamente', 'long', 'bottom');
-            //             defer.reject();
-            //             $ionicBackdrop.release();
-            //         });
-            // });
-
             return defer.promise;
         },
         doLoginFake: function(){
@@ -676,6 +623,36 @@ angular.module('starter.services', [])
             defer.resolve(store.get('audios') || []);
             return defer.promise;
         },
+    };
+})
+.factory('LinhaDoTempo', function(
+    $q,
+    $http,
+    CONFIG,
+    store
+){
+    return {
+        all: function() {
+
+            var defer = $q.defer();
+
+            $http
+                .get(CONFIG.WEBSERVICE_URL + 'linha_do_tempo.php')
+                .success(function(data){
+                    store.set('linha_do_tempo', data.data);
+                    defer.resolve(data.data);
+                })
+                .error(function(){
+                    defer.reject();
+                });
+                
+            return defer.promise;
+        },
+        getCache: function(){
+            var defer = $q.defer();
+            defer.resolve(store.get('linha_do_tempo') || []);
+            return defer.promise;
+        }
     };
 })
 .factory('Videos', function(

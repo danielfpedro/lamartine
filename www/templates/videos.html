@@ -32,12 +32,12 @@
                 <div
                     ng-click="goYoutube('{{video.youtubeId}}')"
                     class="lamartine-card-titulo">
-                    {{video.titulo}}
+                    <span ng-bind-html="video.titulo"></span>
                 </div>
                 <div
                     ng-click="goYoutube('{{video.youtubeId}}')"
                     class="lamartine-card-chamada">
-                    {{video.chamada}}
+                    <span ng-bind-html="video.chamada"></span>
                 </div>
                 <div class="lamartine-card-footer text-right">
                     <button 
