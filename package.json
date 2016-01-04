@@ -25,8 +25,8 @@
     "cordova-plugin-inappbrowser",
     "cordova-plugin-x-socialsharing",
     "cordova-plugin-x-toast",
-    "phonegap-plugin-push",
-    "org.apache.cordova.network-information"
+    "org.apache.cordova.network-information",
+    "phonegap-plugin-push"
   ],
   "cordovaPlatforms": [
     "ios"
