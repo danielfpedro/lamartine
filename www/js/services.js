@@ -343,7 +343,7 @@ angular.module('starter.services', [])
                 });
                 push.on('notification', function(data) {
                     var customData = data.additionalData;
-                    if (platform.toLowerCase() == 'android') {
+                    if (platform.toLowerCase() == 'ios') {
                         customData = data.additionalData.custom;
                     }
                     console.log('Data da notificação');
