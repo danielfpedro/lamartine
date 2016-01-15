@@ -1,7 +1,40 @@
 <ion-view view-title="Créditos">
     <ion-content has-bouncing="false">
         <div class="fill-content-height box-column">
-            <div class="flex-row-1 sobre-content">
+            <div class="flex-row-1">
+                <div style="text-align: center;">
+                    <img
+                        src="img/interagir_logo.jpg"
+                        style="width: 50%;">    
+                </div>
+                <div style="text-align: center; margin-top: 10px;">
+                    <div class="row-sobre">
+                        <button type="button" class="button button-clear btn-sobre" ng-click="goExternal(sobre.interagirFacebook.url)">
+                            <span class="icon ion-social-facebook"></span> {{sobre.interagirFacebook.label}}    
+                        </button>
+                    </div>
+                    <div class="row-sobre">
+                        <a ng-href="tel:{{sobre.interagirTelefone}}" class="button button-clear btn-sobre">
+                            <span class="icon ion-ios-telephone"></span> {{sobre.interagirTelefone}}
+                        </a>
+                    </div>
+                    <div class="row-sobre">
+                        <button
+                            type="button"
+                            class="button button-clear btn-sobre"
+                            ng-click="goExternal(sobre.interagirSite.url)">
+                            <span class="icon ion-link"></span> {{sobre.interagirSite.label}}    
+                        </button>
+                    </div>
+                    <div class="row-sobre">
+                        {{sobre.interagirLocalizacao}}
+                    </div>
+                </div>
+            </div>
+            <div class="flex-row-1">
+                oi
+            </div>
+            <!-- <div class="flex-row-1 sobre-content">
                 <div style="text-align: center;">
                     <img
                         src="img/interagir_logo.jpg"
@@ -30,7 +63,7 @@
                         {{sobre.interagirLocalizacao}}
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </ion-content>
 </ion-view>

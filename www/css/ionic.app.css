@@ -9392,7 +9392,13 @@ h2 {
   font-size: 24px; }
 
 .btn-sobre {
+  margin: 0 !important;
+  padding: 0 !important;
   color: rgba(0, 0, 0, 0.8) !important; }
+
+.row-sobre {
+  margin: 0 !important;
+  padding: 0 !important; }
 
 .bar-lamartine {
   background-color: #84703F !important; }

@@ -892,13 +892,13 @@ angular.module('starter.services', [])
                     toolbar: 'yes',
                     closebuttoncaption: 'Voltar'
                 };
-                $ionicLoading.show({template: 'Abrindo, aguarde...'});
-                $cordovaInAppBrowser.open(url, '_blank', options)
+                // $ionicLoading.show({template: 'Abrindo, aguarde...'});
+                $cordovaInAppBrowser.open(url, '_system', options)
                     .then(function(event) {
                     // success
                     })
                     .catch(function(event) {
-                        $ionicLoading.hide();
+                        // $ionicLoading.hide();
                     });
             });
 
