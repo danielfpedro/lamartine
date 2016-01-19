@@ -9340,15 +9340,29 @@ h2 {
   -moz-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  height: 100%; }
+  height: 100%;
+  width: 100%;
+  font-family: "Helvetica Neue", "Roboto", "Segoe UI", sans-serif; }
 
 .flex-row-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -moz-box-flex: 1;
   -moz-flex: 1;
   -ms-flex: 1;
-  flex: 1; }
+  flex: 1;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  justify-content: center;
+  width: 100%; }
 
 .flex-row-2 {
   -webkit-box-flex: 2;
@@ -9396,9 +9410,18 @@ h2 {
   padding: 0 !important;
   color: rgba(0, 0, 0, 0.8) !important; }
 
-.row-sobre {
-  margin: 0 !important;
-  padding: 0 !important; }
+.row-sobre, .row-sobre a {
+  font-size: 16px;
+  color: #333333;
+  text-decoration: none; }
+
+.destaques-slide {
+  height: 100%;
+  background-size: cover;
+  background-position: top center; }
+
+.bg-black {
+  background-color: #000; }
 
 .bar-lamartine {
   background-color: #84703F !important; }

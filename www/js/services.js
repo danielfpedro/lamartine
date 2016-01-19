@@ -212,7 +212,7 @@ angular.module('starter.services', [])
                     label: 'www.agenciainteragir.com.br',
                     url: 'http://www.agenciainteragir.com.br'
                 },
-                interagirTelefone: '+55 (24) 9-9286-5544',
+                interagirTelefone: '+55 (24) 3336-1566',
                 interagirLocalizacao: 'Volta Redonda / RJ'
             }
         },
@@ -874,7 +874,37 @@ angular.module('starter.services', [])
             return defer.promise;
         }
     };
-}).factory('CustomState', function(
+})
+.factory('Destaques', function(
+    $q,
+    $http,
+    CONFIG,
+    store
+) {
+    return {
+        all: function() {
+
+            var defer = $q.defer();
+
+            $http
+                .get(CONFIG.WEBSERVICE_URL + 'destaques.php')
+                .success(function(destaques){
+                    store.set('destaques', destaques.data);
+                    defer.resolve(destaques.data);
+                })
+                .error(function(){
+                    defer.reject();
+                });
+            return defer.promise;
+        },
+        getCache: function(){
+            var defer = $q.defer();
+            defer.resolve(store.get('destaques') || []);
+            return defer.promise;
+        }
+    };
+})
+.factory('CustomState', function(
     $ionicHistory,
     $ionicLoading,
     $cordovaInAppBrowser,

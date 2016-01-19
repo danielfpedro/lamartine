@@ -224,9 +224,15 @@ h2 {
 	@include flexbox();
 	@include flex-direction(column);
 	height: 100%;
+	width: 100%;
+	font-family: $font-family-sans-serif;
 }
 .flex-row-1{
+	@include flexbox();
 	@include flex(1);
+	@include align-items(center);
+	justify-content: center;
+	width: 100%;
 }
 .flex-row-2{
 	@include flex(2);
@@ -252,7 +258,17 @@ h2 {
 	padding: 0!important;
 	color: rgba(#000, .8)!important;
 }
-.row-sobre{
-	margin: 0!important;
-	padding: 0!important;
+.row-sobre, .row-sobre a{
+	font-size: 16px;
+	color: lighten(#000, 20%);
+	text-decoration: none;
+}
+
+.destaques-slide {
+	height: 100%;
+	background-size: cover;
+	background-position: top center;
+}
+.bg-black{
+	background-color: #000;
 }

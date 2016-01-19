@@ -167,7 +167,7 @@ angular.module('starter.controllers', [])
 
     $scope.eventos = eventos;
 
-    $scope.$on( "$ionicView.beforeEnter", function(scopes, states) {
+    $scope.$on("$ionicView.beforeEnter", function(scopes, states) {
         
         if (eventos.length < 1 || $rootScope.badges.agenda > 0) {
             $scope.loading = true;
@@ -538,6 +538,65 @@ angular.module('starter.controllers', [])
         CustomState.goExternal(url);
     };
 })
+
+.controller('DestaquesController', function(
+    $scope,
+    $ionicSlideBoxDelegate,
+    $ionicSideMenuDelegate,
+    $timeout,
+    CustomState,
+    Destaques,
+    destaques
+) {
+    
+    $scope.$on("$ionicView.beforeEnter", function () {
+        $ionicSideMenuDelegate.canDragContent(false);
+    }); 
+    $scope.$on("$ionicView.afterLeave", function () {
+        $ionicSideMenuDelegate.canDragContent(true);
+    }); 
+
+    $scope.destaques = destaques;
+
+    $scope.$on("$ionicView.beforeEnter", function(scopes, states) {
+        /**
+         * Neste módulo especifico sempre irá buscar conteudo novo toda vez que entrar
+         * nele
+         */
+        if (destaques.length < 1) {
+            $scope.loading = true;
+        }
+        $scope.all();
+
+    });
+
+    $scope.doRefresh = function() {
+        $scope.all();
+    };
+
+    $scope.all = function(){
+        $timeout(function(){
+            Destaques
+                .all()
+                .then(function(data){
+                    $scope.destaques = data;
+                })
+                .finally(function(){
+                    $scope.loading = false;
+                    $scope.$broadcast('scroll.refreshComplete');
+                    $ionicSlideBoxDelegate.update();
+                    $ionicSlideBoxDelegate.slide(0);
+                });
+        });
+    };
+    
+    $scope.goExternal = function(url){
+        if (url) {
+            CustomState.goExternal(url);    
+        }
+    };
+})
+
 .controller('BiografiaCompletaController', function(
     $scope,
     biografia
