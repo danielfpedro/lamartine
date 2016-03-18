@@ -8,7 +8,7 @@
 var prod = true;
 
 angular.module('starter', [
-    'ionic',
+    'ionic','ionic.service.core',
     'starter.controllers',
     'starter.services',
     'ngCordova',
@@ -91,8 +91,6 @@ angular.module('starter', [
     $ionicPlatform.ready(function() {
 
         if (prod) {
-
-             
 
             $rootScope.isOnline = $cordovaNetwork.isOnline();
             $rootScope.$on('$cordovaNetwork:online', function(event, networkState){

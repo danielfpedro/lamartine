@@ -1,6 +1,5 @@
 {
   "name": "lamartine",
-  "app_id": "80134a1c",
   "gulpStartupTasks": [
     "sass",
     "watch"
@@ -15,5 +14,6 @@
       "browser": "crosswalk",
       "version": "12.41.296.5"
     }
-  ]
+  ],
+  "app_id": "d4b951a1"
 }

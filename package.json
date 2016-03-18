@@ -22,11 +22,17 @@
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
     "cordova-plugin-dialogs",
-    "cordova-plugin-inappbrowser",
     "cordova-plugin-x-socialsharing",
     "cordova-plugin-x-toast",
     "org.apache.cordova.network-information",
-    "phonegap-plugin-push"
+    {
+      "variables": {
+        "SENDER_ID": "1004540944791"
+      },
+      "locator": "phonegap-plugin-push",
+      "id": "phonegap-plugin-push"
+    },
+    "cordova-plugin-inappbrowser"
   ],
   "cordovaPlatforms": [
     "ios",

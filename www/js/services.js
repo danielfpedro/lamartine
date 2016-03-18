@@ -292,20 +292,35 @@ angular.module('starter.services', [])
             var defer = $q.defer();
             var _this = this;
             ionic.Platform.ready(function(){
+                // alert('Entrou');
+                
                 var uuid = (prod) ? $cordovaDevice.getUUID() : '123';
                 var platform = (prod) ? $cordovaDevice.getPlatform() : 'android';
+                
+                // alert('UUID: ' + uuid);
+                // alert('Platform: ' + platform);
 
                 _this
                     .getRegIdAndWatchNotification(platform)
                     .then(function(regId){
+                        // alert('Resolveu pegar o id');
                         var registeredBefore = store.get('regIdRegistered') || false;
+
+                        // alert('Registrado before?');
+                        //alert(registeredBefore);
+
                         if (!registeredBefore) {
+                            // alert('Salvando o regid');
                             _this
                                 .saveRegId(uuid, regId, platform)
                                 .then(function(result){
+                                    //alert('Salvou regid');
+                                    console.log(result);
                                     defer.resolve(result);
-                                }, function (){
-                                    console.log('deu ruim para salvar');
+                                }, function (err){
+                                    //alert('Não salvou regid');
+                                    //alert(err);
+                                    console.log(err);
                                     defer.reject();
                                 });
                         }
@@ -339,6 +354,10 @@ angular.module('starter.services', [])
                 push.on('registration', function(data) {
                     // console.log('Registrado');
                     // console.log(data.registrationId);
+
+                    // alert('Registrado:');
+                    // alert(data.registrationId);
+
                     defer.resolve(data.registrationId);
                 });
                 push.on('notification', function(data) {
@@ -389,6 +408,7 @@ angular.module('starter.services', [])
                 });
                 push.on('error', function(e) {
                     console.log(e.message);
+                    // alert(e.message);
                     defer.reject();
                 });
             });
