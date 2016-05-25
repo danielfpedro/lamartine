@@ -1,0 +1,63 @@
+<ion-view view-title="Blog">
+
+    <div
+        ng-if="btnsRefresh.blog"
+        class="btn-refresh-content"
+        ng-click="refreshByButton()">
+            Atualizar conteúdo
+    </div>
+
+    <ion-content class="content-bg" has-bouncing="false">
+        <ion-refresher
+            ng-if="!loading"
+            pulling-text="Puxe para atualizar..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <my-network-alert></my-network-alert>
+
+        <div class="text-center padding" ng-if="loading">
+            <ion-spinner></ion-spinner>
+        </div>
+
+        <ion-list>
+            <div class="lamartine-card" ng-repeat="post in posts track by $index">
+                <div
+                    ng-click="goBlog('{{post.link}}')"
+                    class="lamartine-card-img"
+                    alt="{{post.titulo}}"
+                    style="background-image: url({{imagemBaseUrl}}{{post.imagem}})">
+                </div>
+                <div
+                    ng-click="goBlog('{{post.link}}')"
+                    class="lamartine-card-titulo">
+                    {{post.titulo}}
+                </div>
+                <div
+                    ng-click="goBlog('{{post.link}}')"
+                    class="lamartine-card-chamada">
+                    {{post.chamada}}
+                </div>
+                <div class="lamartine-card-footer text-right">
+                    <button
+                        type="button"
+                        class="button button-clear button-icon-left button-small button-card-footer"
+                        ng-click="share(post)">
+                        <span class="icon ion-android-share"></span> Compartilhar
+                    </button>
+                </div>
+            </div>
+
+            <div class="padding">
+                <button
+                    type="button"
+                    class="button button-outline button-positive button-block"
+                    ng-click="goAllPosts()">
+                    Ver todos os posts
+                </button>
+            </div>
+
+        </ion-list>
+
+    </ion-content>
+</ion-view>

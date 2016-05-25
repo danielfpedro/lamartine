@@ -200,6 +200,11 @@ angular.module('starter.services', [])
                         'url': 'https://pt.wikipedia.org/wiki/Lamartine_Posella',
                         'image': 'wikipedia_icon.png'
                     },
+                    {
+                        'nome': 'Soundcloud',
+                        'url': 'https://soundcloud.com/lamartine-posella',
+                        'image': 'soundcloud_icon.png'
+                    }
                 ]
             },
             sobre:
@@ -292,21 +297,21 @@ angular.module('starter.services', [])
             var defer = $q.defer();
             var _this = this;
             ionic.Platform.ready(function(){
-                // alert('Entrou');
+                alert('Entrou em registrar notificação');
                 
                 var uuid = (prod) ? $cordovaDevice.getUUID() : '123';
                 var platform = (prod) ? $cordovaDevice.getPlatform() : 'android';
                 
-                // alert('UUID: ' + uuid);
-                // alert('Platform: ' + platform);
+                //alert('UUID: ' + uuid);
+                //alert('Platform: ' + platform);
 
                 _this
                     .getRegIdAndWatchNotification(platform)
                     .then(function(regId){
-                        // alert('Resolveu pegar o id');
+                        alert('Resolveu pegar o id');
                         var registeredBefore = store.get('regIdRegistered') || false;
 
-                        // alert('Registrado before?');
+                        //alert('Registrado before?');
                         //alert(registeredBefore);
 
                         if (!registeredBefore) {
@@ -314,11 +319,11 @@ angular.module('starter.services', [])
                             _this
                                 .saveRegId(uuid, regId, platform)
                                 .then(function(result){
-                                    //alert('Salvou regid');
+                                    //alert('Salvou regid', result);
                                     console.log(result);
                                     defer.resolve(result);
                                 }, function (err){
-                                    //alert('Não salvou regid');
+                                    //alert('Não salvou regid', err);
                                     //alert(err);
                                     console.log(err);
                                     defer.reject();
@@ -352,21 +357,22 @@ angular.module('starter.services', [])
                     }
                 });
                 push.on('registration', function(data) {
-                    // console.log('Registrado');
-                    // console.log(data.registrationId);
 
-                    // alert('Registrado:');
-                    // alert(data.registrationId);
+                    alert('Registrado:');
+                    alert(data.registrationId);
 
                     defer.resolve(data.registrationId);
                 });
                 push.on('notification', function(data) {
+                    alert('recebendo notificação');
                     var customData = data.additionalData;
                     if (platform.toLowerCase() == 'ios') {
-                        customData = data.additionalData.custom;
+                        customData = data.additionalData.customData;
                     }
+                    alert(platform);
+                    alert(JSON.stringify(customData));
                     console.log('Data da notificação');
-                    console.log(data);
+                    console.log(customData);
                     /**
                      * Incrementa badge
                      * OBS.: Da uns bugs se nao enrolar no timeout
@@ -417,11 +423,13 @@ angular.module('starter.services', [])
         saveRegId: function(uuid, regId, platform){
 
             var defer = $q.defer();
+            alert('Indo no servidor salvar o regid');
             console.log('Indo no servidor salvar o regid');
             $http
                 .post(CONFIG.WEBSERVICE_URL + 'salva_regid.php', {uuid: uuid, regid: regId, platform: platform})
                 .then(function(result){
                     console.log('Foi no servidor e voltou jóia');
+                    alert('Foi no servidor e voltou fino');
                     /**
                      * Garanto que realmente salvou
                      */
@@ -430,7 +438,8 @@ angular.module('starter.services', [])
                     }
                     defer.resolve(result);
                 }, function(){
-                    console.log('FOi no servidor e voltou reuim, deu erro rsrsrs');
+                    console.log('Foi no servidor e voltou reuim, deu erro rsrsrs');
+                    alert('Foi no servidor e voltou reuim, deu erro rsrsrs');
                     defer.reject();
                 });
 

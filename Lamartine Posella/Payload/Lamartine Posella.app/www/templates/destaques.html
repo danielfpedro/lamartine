@@ -1,0 +1,27 @@
+<ion-view view-title="Destaques">
+    <ion-content has-bouncing="false">
+
+<!--         <ion-refresher
+            ng-if="!loading"
+            pulling-text="Puxe para atualizar..."
+            on-refresh="doRefresh()">
+        </ion-refresher> -->
+
+    	<div class="fill-content-height bg-black">
+
+	        <my-network-alert></my-network-alert>
+
+	        <div class="text-center padding" ng-if="loading">
+	            <ion-spinner></ion-spinner>
+	        </div>
+			<ion-slide-box style="height: 100%;">
+				<ion-slide
+					class="destaques-slide"
+					ng-repeat="destaque in destaques"
+					ng-click="goExternal(destaque.link)"
+					style="background-image: url(http://www.lamartineposella.com.br/site/images/banners/{{destaque.imagem}})">
+				</ion-slide>
+			</ion-slide-box>
+    	</div>
+    </ion-content>
+</ion-view>

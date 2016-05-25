@@ -1,0 +1,111 @@
+<ion-view view-title="Créditos">
+    <ion-content has-bouncing="false">
+        <div class="fill-content-height">
+            <div class="box-column">
+                <div class="flex-row-1 text-center">
+                    <div class="row-sobre padding">
+                        <div class="row" style="text-align: center;">
+                            <div class="col">
+                                <img
+                                    src="img/interagir_logo.jpg"
+                                    style="width: 60%;">    
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a href="tel:{{sobre.interagirTelefone}}">
+                                    <span class="icon ion-ios-telephone"></span> {{sobre.interagirTelefone}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" ng-click="goExternal('https://www.facebook.com/interagir')">
+                            <div class="col">
+                                <span class="icon ion-social-facebook"></span> {{sobre.interagirFacebook.label}}    
+                            </div>
+                        </div>
+                        <div class="row" ng-click="goExternal('https://twitter.com/interagir')">
+                            <div class="col">
+                                <span class="icon ion-social-twitter"></span> @interagir
+                            </div>
+                        </div>
+                        <div class="row" ng-click="goExternal('http://www.agenciainteragir.com.br/')">
+                            <div class="col">
+                                <span class="icon ion-link"></span> {{sobre.interagirSite.label}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {{sobre.interagirLocalizacao}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-row-1 text-center">
+                    <div class="row-sobre padding">
+                        <div class="row" style="text-align: center;">
+                            <div class="col">
+                                <img
+                                    src="img/apice_logo.jpg"
+                                    style="width: 60%;">    
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a href="tel:+55 (24) 3348-3666">
+                                    <span class="icon ion-ios-telephone"></span> +55 (24) 3348-9468
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row" ng-click="goExternal('https://www.facebook.com/ApiceON')">
+                            <div class="col">
+                                <span class="icon ion-social-facebook"></span> /apice
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a href="mailto:contato@apiceon.com">
+                                    <span class="icon ion-ios-email"></span> contato@apiceon.com
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Volta Redonda / RJ
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="flex-row-1 sobre-content">
+                <div style="text-align: center;">
+                    <img
+                        src="img/interagir_logo.jpg"
+                        style="width: 70%;">    
+                </div>
+                <div style="text-align: center;font-size: 18px; margin-top: 60px;">
+                    <div>
+                        <button type="button" class="button button-clear btn-sobre" ng-click="goExternal(sobre.interagirFacebook.url)">
+                            <span class="icon ion-social-facebook"></span> {{sobre.interagirFacebook.label}}    
+                        </button>
+                    </div>
+                    <div style="margin-top: -10px;">
+                        <a ng-href="tel:{{sobre.interagirTelefone}}" class="button button-clear btn-sobre">
+                            <span class="icon ion-ios-telephone"></span> {{sobre.interagirTelefone}}
+                        </a>
+                    </div>
+                    <div style="margin-top: -10px;">
+                        <button
+                            type="button"
+                            class="button button-clear btn-sobre"
+                            ng-click="goExternal(sobre.interagirSite.url)">
+                            <span class="icon ion-link"></span> {{sobre.interagirSite.label}}    
+                        </button>
+                    </div>
+                    <div style="margin-top: 40px;">
+                        {{sobre.interagirLocalizacao}}
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </ion-content>
+</ion-view>

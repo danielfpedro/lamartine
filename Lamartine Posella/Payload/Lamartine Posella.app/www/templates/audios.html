@@ -1,0 +1,51 @@
+<ion-view view-title="Áudios">
+
+    <div
+        ng-if="btnsRefresh.audios"
+        class="btn-refresh-content"
+        ng-click="refreshByButton()">
+            Atualizar conteúdo
+    </div>
+
+    <ion-content class="content-bg" has-bouncing="false">
+        <ion-refresher
+            ng-if="!loading"
+            pulling-text="Puxe para atualizar..."
+            on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <div class="text-center padding" ng-if="loading">
+            <ion-spinner></ion-spinner>
+        </div>
+
+        <ion-list>
+            <div class="lamartine-card" ng-repeat="audio in audios">
+                <div class="lamartine-card-titulo" ng-click="goAudio(audio.link)">
+                    {{audio.titulo}}
+                </div>
+                <div class="lamartine-card-chamada" ng-click="goAudio(audio.link)">
+                    {{audio.chamada}}
+                </div>
+                <div class="lamartine-card-footer text-right">
+                    <button
+                        type="button"
+                        class="button button-clear button-icon-left button-small button-card-footer"
+                        ng-click="share(audio)">
+                        <span class="icon ion-android-share"></span> Compartilhar
+                    </button>
+                </div>
+            </div>
+        </ion-list>
+
+        <div ng-if="audios.length < 1" class="no-content">
+            Nenhum audio para mostrar
+        </div>
+
+        <ion-infinite-scroll
+            ng-if="moreDataCanBeLoaded"
+            on-infinite="loadMore()"
+            distance="10%">
+        </ion-infinite-scroll>
+        
+    </ion-content>
+</ion-view>
